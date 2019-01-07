@@ -1,5 +1,7 @@
 package com.example.tung.androidproject;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -38,8 +40,8 @@ public class MainScreen extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_user:
-                    fragment = new SignInFragment();
-                    loadFragment(fragment);
+                    Intent intent = new Intent(MainScreen.this, LoginActivity.class);
+                    startActivity(intent);
                     return true;
                 case R.id.navigation_notifications:
                     fragment = new NotificationFragment();

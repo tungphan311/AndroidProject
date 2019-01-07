@@ -19,14 +19,11 @@ public class MainScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
-        toolbar = getSupportActionBar();
-
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // load app default
-        toolbar.setTitle("Shopping");
-        loadFragment(new MeFragment());
+        loadFragment(new ShoppingFragment());
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -37,22 +34,18 @@ public class MainScreen extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_shopping:
-                    toolbar.setTitle("Shopping");
                     fragment = new ShoppingFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_user:
-                    toolbar.setTitle("Me");
-                    fragment = new MeFragment();
+                    fragment = new SignInFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
-                    toolbar.setTitle("Notifications");
                     fragment = new NotificationFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_more:
-                    toolbar.setTitle("More");
                     fragment = new MoreFragment();
                     loadFragment(fragment);
                     return true;

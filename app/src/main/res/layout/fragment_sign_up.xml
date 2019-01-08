@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpFragment">
+    tools:context=".fragment.SignUpFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -94,12 +94,12 @@
                 android:layout_marginTop="10dp">
 
                 <EditText
-                    android:id="@+id/et_password"
+                    android:id="@+id/et_su_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_password"
                     android:inputType="textPassword"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout

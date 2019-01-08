@@ -1,11 +1,11 @@
-package com.example.tung.androidproject;
+package com.example.tung.androidproject.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.tung.androidproject.SignInFragment;
-import com.example.tung.androidproject.SignUpFragment;
+import com.example.tung.androidproject.fragment.SignInFragment;
+import com.example.tung.androidproject.fragment.SignUpFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
     public ViewPagerAdapter(FragmentManager fm) {super(fm);}

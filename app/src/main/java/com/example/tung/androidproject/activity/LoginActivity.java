@@ -1,4 +1,4 @@
-package com.example.tung.androidproject;
+package com.example.tung.androidproject.activity;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.tung.androidproject.ViewPagerAdapter;
+import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.adapter.ViewPagerAdapter;
 
 public class LoginActivity extends AppCompatActivity {
     private ImageView btnThoat;

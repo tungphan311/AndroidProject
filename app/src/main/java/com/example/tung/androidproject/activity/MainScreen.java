@@ -1,6 +1,5 @@
-package com.example.tung.androidproject;
+package com.example.tung.androidproject.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +9,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.example.tung.androidproject.fragment.MoreFragment;
+import com.example.tung.androidproject.fragment.NotificationFragment;
+import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.fragment.ShoppingFragment;
 
 public class MainScreen extends AppCompatActivity {
 

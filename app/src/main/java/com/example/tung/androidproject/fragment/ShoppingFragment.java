@@ -1,4 +1,5 @@
-package com.example.tung.androidproject;
+package com.example.tung.androidproject.fragment;
+
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,19 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tung.androidproject.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SignUpFragment extends Fragment {
+public class ShoppingFragment extends Fragment {
 
 
-    public SignUpFragment() {
+    public ShoppingFragment() {
         // Required empty public constructor
     }
 
-    public static SignUpFragment newInstance(String param1, String param2) {
-        SignUpFragment fragment = new SignUpFragment();
+    public static ShoppingFragment newInstance(String param1, String param2) {
+        ShoppingFragment fragment = new ShoppingFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -33,7 +36,7 @@ public class SignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false);
+        return inflater.inflate(R.layout.fragment_shopping, container, false);
     }
 
 }

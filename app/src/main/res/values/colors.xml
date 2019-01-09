@@ -10,4 +10,5 @@
     <color name="color_toolbar_background">#48A307</color>
     <color name="color_toolbar_background_end">#9DEA65</color>
     <color name="color_pink">#FF6F00</color>
+    <color name="color_redText">#FF2200</color>
 </resources>

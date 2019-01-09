@@ -64,6 +64,8 @@ public class LoaisanphamAdapter extends BaseAdapter {
         Loaisanpham loaisanpham =(Loaisanpham) getItem(position);
         viewHolder.tvTenLoaiSP.setText(loaisanpham.getTenloaisp());
         Picasso.with(context).load(loaisanpham.getHinhanhloaisp())
+                .placeholder(R.drawable.ic_not_available)
+                .error(R.drawable.ic_error)
                 .into(viewHolder.imgLoaiSP);
 
         return convertView;

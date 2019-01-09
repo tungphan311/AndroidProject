@@ -1,6 +1,5 @@
 package com.example.tung.androidproject.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.example.tung.androidproject.fragment.MeFragment;
 import com.example.tung.androidproject.fragment.MoreFragment;
 import com.example.tung.androidproject.fragment.NotificationFragment;
 import com.example.tung.androidproject.R;
@@ -18,6 +18,8 @@ import com.example.tung.androidproject.fragment.ShoppingFragment;
 public class MainScreen extends AppCompatActivity {
 
     private ActionBar toolbar;
+
+    public static boolean isDangNhap = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +45,8 @@ public class MainScreen extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_user:
-                    Intent intent = new Intent(MainScreen.this, LoginActivity.class);
-                    startActivity(intent);
+                    fragment = new MeFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
                     fragment = new NotificationFragment();
@@ -67,4 +69,5 @@ public class MainScreen extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 }

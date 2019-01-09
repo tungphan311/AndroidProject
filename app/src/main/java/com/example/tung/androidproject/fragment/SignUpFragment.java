@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tung.androidproject.R;
 
@@ -75,6 +76,35 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
     }
 
     private void xuLyDangKy() {
+        String hoten = etHoTen.getText().toString().trim();
+        String diachi = etDiaChi.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String sodt = etSoDienThoai.getText().toString().trim();
+        String pass = etPassWord.getText().toString().trim();
+        String repass = etRePassWord.getText().toString().trim();
+
+        if (hoten.isEmpty()) {
+            Toast.makeText(getActivity(), "Họ và tên không được bỏ trống!", Toast.LENGTH_SHORT).show();
+        }
+        else if (sodt.isEmpty()) {
+            Toast.makeText(getActivity(), "Số điện thoại không được bỏ trống!", Toast.LENGTH_SHORT).show();
+        }
+        else if (pass.isEmpty()) {
+            Toast.makeText(getActivity(), "Mật khẩu không được bỏ trống!", Toast.LENGTH_SHORT).show();
+        }
+        else if (repass.isEmpty()) {
+            Toast.makeText(getActivity(), "Vui lòng nhập lại mật khẩu!", Toast.LENGTH_SHORT).show();
+        }
+        else
+            if (!repass.equals(pass)) {
+                Toast.makeText(getActivity(), "Mật khẩu không khớp, vui lòng nhập lại!", Toast.LENGTH_SHORT).show();
+            }
+            else if (!cbDieuKhoan.isChecked()) {
+                Toast.makeText(getActivity(), "Bạn chưa chấp nhận điều khoản của eShopping", Toast.LENGTH_SHORT).show();
+            }
+            else {
+
+            }
 
     }
 }

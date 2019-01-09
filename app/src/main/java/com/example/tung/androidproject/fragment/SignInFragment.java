@@ -8,8 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.activity.MainScreen;
+import com.example.tung.androidproject.util.Constran;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -24,17 +30,17 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    public static SignInFragment newInstance(String param1, String param2) {
-        SignInFragment fragment = new SignInFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInsanceState) {
-        super.onCreate(savedInsanceState);
-    }
+//    public static SignInFragment newInstance(String param1, String param2) {
+//        SignInFragment fragment = new SignInFragment();
+//        Bundle args = new Bundle();
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
+//
+//    @Override
+//    public void onCreate(Bundle savedInsanceState) {
+//        super.onCreate(savedInsanceState);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +49,8 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
 
         initView(view);
+
+        initData();
 
         initEvent();
 
@@ -61,18 +69,13 @@ public class SignInFragment extends Fragment implements View.OnClickListener {
         etPassword = view.findViewById(R.id.et_password);
     }
 
+    private void initData() {
+
+    }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_dangnhap:
-                // xử lý đăng nhập
-                String user = etPhone.getText().toString().trim();
-                String pass = etPassword.getText().toString().trim();
-
-
-                break;
-
-            case R.id.tv_quenmatkhau:
 
                 break;
         }

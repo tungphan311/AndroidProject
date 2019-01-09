@@ -20,4 +20,6 @@
     <string name="cb_license">Tôi đã đọc và hiểu rõ các điều khoản và chính sách của eShopping</string>
     <string name="btn_dangky">Đăng ký</string>
     <string name="tv_dangnhap_dangky">Đăng nhập / Đăng ký</string>
+    <string name="et_newproduct">Sản phẩm mới nhất:</string>
+    <string name="tv_loaisp">Loại sản phẩm</string>
 </resources>

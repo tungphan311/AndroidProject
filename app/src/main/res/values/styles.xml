@@ -25,4 +25,10 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="viewflipper">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">0.3</item>
+    </style>
+
 </resources>

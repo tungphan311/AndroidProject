@@ -12,4 +12,5 @@ public class Constran {
     public static String localhost = "10.0.133.201:8080";
     public static String API_URL = "http://" + localhost + "/server/";
     public static String getLoaiSP_URL = "http://" + localhost + "/server/getloaisanpham.php";
+    public static String getSPMoiNhat_URL = "http://" + localhost + "/server/getsanphammoinhat.php";
 }

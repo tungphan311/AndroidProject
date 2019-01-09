@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tung.androidproject.R;
 import com.example.tung.androidproject.adapter.LoaisanphamAdapter;
+import com.example.tung.androidproject.adapter.SanphamAdapter;
 import com.example.tung.androidproject.model.Loaisanpham;
+import com.example.tung.androidproject.model.Sanpham;
 import com.example.tung.androidproject.util.Constran;
 import com.squareup.picasso.Picasso;
 
@@ -52,6 +56,9 @@ public class ShoppingFragment extends Fragment {
 
     ArrayList<Loaisanpham> listLoaiSP;
     LoaisanphamAdapter loaisanphamAdapter;
+
+    ArrayList<Sanpham> listSanpham;
+    SanphamAdapter sanphamAdapter;
 
     int maloaisp = 0;
     String tenloaisp = "";
@@ -87,6 +94,8 @@ public class ShoppingFragment extends Fragment {
 
         getDataLoaiSP();
 
+        getDataSPMoiNhat();
+
         return view;
     }
 
@@ -100,8 +109,13 @@ public class ShoppingFragment extends Fragment {
 
         listLoaiSP = new ArrayList<>();
         loaisanphamAdapter = new LoaisanphamAdapter(listLoaiSP, getActivity().getApplicationContext());
-
         listView.setAdapter(loaisanphamAdapter);
+
+        listSanpham = new ArrayList<>();
+        sanphamAdapter = new SanphamAdapter(getActivity().getApplicationContext(), listSanpham);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
+        recyclerView.setAdapter(sanphamAdapter);
     }
 
     @SuppressLint("RestrictedApi")
@@ -163,10 +177,51 @@ public class ShoppingFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "get loaisanpham error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "get loaisanpham error", Toast.LENGTH_SHORT).show();
             }
         });
 
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    private void getDataSPMoiNhat() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Constran.getSPMoiNhat_URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if (response != null) {
+                    int masp = 0;
+                    String tensp = "";
+                    Integer giasp = 0;
+                    String hinhanhsp = "";
+                    String motasp = "";
+                    int maloaisp = 0;
+
+                    for (int i= 0; i<response.length(); i++) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+
+                            masp = jsonObject.getInt("masanpham");
+                            tensp = jsonObject.getString("tensanpham");
+                            giasp = jsonObject.getInt("giasanpham");
+                            hinhanhsp = jsonObject.getString("hinhanhsanpham");
+                            motasp = jsonObject.getString("motasanpham");
+                            maloaisp = jsonObject.getInt("maloaisanpham");
+
+                            listSanpham.add(new Sanpham(masp, tensp, giasp, hinhanhsp, motasp, maloaisp));
+                            sanphamAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity().getApplicationContext(), "get sanphammoinhat error", Toast.LENGTH_SHORT).show();
+            }
+        });
         requestQueue.add(jsonArrayRequest);
     }
 }

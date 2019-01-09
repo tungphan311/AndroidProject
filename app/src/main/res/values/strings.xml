@@ -23,4 +23,8 @@
     <string name="et_newproduct">Sản phẩm mới nhất:</string>
     <string name="tv_loaisp">Loại sản phẩm</string>
     <string name="tv_tensp">Tên sản phẩm</string>
+    <string name="tb_phone">Điện thoại</string>
+    <string name="tb_laptop">Laptop</string>
+    <string name="tb_tablet">Tablet</string>
+    <string name="tb_phukien">Phụ kiện</string>
 </resources>

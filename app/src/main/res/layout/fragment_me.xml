@@ -3,24 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.MeFragment">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tb__main"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/color_orange">
-
-        <ImageView
-            android:id="@+id/iv_search"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/progress"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_search"/>
-
-        <EditText
-            android:id="@+id/et_search"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvtimkiemsp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"/>
+            android:layout_height="wrap_content">
 
-    </android.support.v7.widget.Toolbar>
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
 </FrameLayout>

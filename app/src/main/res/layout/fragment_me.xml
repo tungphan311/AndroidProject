@@ -42,12 +42,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Com
+            <LinearLayout
                 android:id="@+id/lv_loaisp"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp">
 
-            </Com>
+            </LinearLayout>
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvtimkiemsp"

@@ -3,18 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.MeFragment">
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ProgressBar
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:gravity="center"
+            android:background="@color/color_orange"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/edt_timkiem"
+                android:textColor="#000"
+                android:hint="@string/app_timkiem"
+                android:layout_margin="5dp"
+                android:layout_width="290dp"
+                android:layout_height="60dp" />
+            <ImageView
+                android:id="@+id/imv_timkiem"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/edt_timkiem"
+                android:src="@drawable/ic_search"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </RelativeLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvtimkiemsp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
         </android.support.v7.widget.RecyclerView>
-    </RelativeLayout>
+    </LinearLayout>
 </FrameLayout>

@@ -1,15 +1,14 @@
 package com.example.tung.androidproject.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.util.SortedList;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.telecom.Call;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -17,8 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -28,26 +25,17 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tung.androidproject.R;
-import com.example.tung.androidproject.activity.MainScreen;
-import com.example.tung.androidproject.adapter.SanphamAdapter;
 import com.example.tung.androidproject.adapter.SpAdapter;
 import com.example.tung.androidproject.model.Sanpham;
-import com.example.tung.androidproject.util.ApiClient;
-import com.example.tung.androidproject.util.ApiInterface;
 import com.example.tung.androidproject.util.Constran;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
@@ -57,7 +45,6 @@ public class MeFragment extends Fragment {
     RecyclerView recyclerView;
     ArrayList<Sanpham> listSanpham;
     SpAdapter spAdapter;
-    ApiInterface apiInterface;
     EditText editText;
     ImageView imageView;
     String key ="";
@@ -84,24 +71,32 @@ public class MeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_me, container, false);
-        Anhxa(view);
-        getSanPham();
-        getEvent();
-        backtookbar();
+            Anhxa(view);
+            getSanPham();
+            getEvent();
+            check();
         return view;
     }
 
-    private void backtookbar() {
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.ic_back_52px);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+    private void check() {
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                 getSanPham();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                timsanpham(editText.getText().toString());
             }
         });
     }
+
 
     private void getEvent() {
         imageView.setOnClickListener(new View.OnClickListener() {

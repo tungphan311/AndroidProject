@@ -34,6 +34,7 @@ public class ProducDetailActivity extends AppCompatActivity {
         ActionToolBar();
         GetDetail();
         CatchEventSpinner();
+
     }
 
     private void CatchEventSpinner() {

@@ -1,5 +1,6 @@
 package com.example.tung.androidproject.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.activity.CartActivity;
+import com.example.tung.androidproject.fragment.ShoppingFragment;
 import com.example.tung.androidproject.model.Cart;
 import com.squareup.picasso.Picasso;
 
@@ -49,7 +52,7 @@ public class CartAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(final int position, View view, ViewGroup parent) {
         CartAdapter.ViewHolder viewHolder = null;
 
         if (view == null) {
@@ -82,7 +85,67 @@ public class CartAdapter extends BaseAdapter {
                 .into(viewHolder.imgSp);
 
         viewHolder.etSoluongsp.setText(cart.getSoluong() + "");
+        int sl = Integer.parseInt(viewHolder.etSoluongsp.getText().toString());
+        if(sl>=10){
+            viewHolder.btnThemsp.setVisibility(View.INVISIBLE);
+            viewHolder.btnBotsp.setVisibility(View.VISIBLE);
+        }else if(sl<=1){
+            viewHolder.btnThemsp.setVisibility(View.VISIBLE);
+            viewHolder.btnBotsp.setVisibility(View.INVISIBLE);
+        }else if (sl>=1){
+            viewHolder.btnThemsp.setVisibility(View.VISIBLE);
+            viewHolder.btnBotsp.setVisibility(View.VISIBLE);
+        }
+        final ViewHolder finalViewHolder = viewHolder;
+        viewHolder.btnThemsp.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                int slmoinhat = Integer.parseInt(finalViewHolder.etSoluongsp.getText().toString())+1;
+                int slht = ShoppingFragment.carts.get(position).getSoluong();
+                long giaht = ShoppingFragment.carts.get(position).getGiasp();
+                ShoppingFragment.carts.get(position).setSoluong(slmoinhat);
+                long giamoinhat = (giaht*slmoinhat)/slht;
+                ShoppingFragment.carts.get(position).setGiasp(giamoinhat);
+                DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+                finalViewHolder.tvGiasp.setText(decimalFormat.format(giamoinhat)+"Đ");
+                CartActivity.EvenUltil();
+                if(slmoinhat>9){
+                    finalViewHolder.btnThemsp.setVisibility(View.INVISIBLE);
+                    finalViewHolder.btnBotsp.setVisibility(View.VISIBLE);
+                    finalViewHolder.etSoluongsp.setText(String.valueOf(slmoinhat));
+                }else {
+                    finalViewHolder.btnThemsp.setVisibility(View.VISIBLE);
+                    finalViewHolder.btnBotsp.setVisibility(View.VISIBLE);
+                    finalViewHolder.etSoluongsp.setText(String.valueOf(slmoinhat));
+                }
+            }
+        });
+        final ViewHolder finalViewHolder1 = viewHolder;
+        viewHolder.btnBotsp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int slmoinhat = Integer.parseInt(finalViewHolder1.etSoluongsp.getText().toString())-1;
+                int slht = ShoppingFragment.carts.get(position).getSoluong();
+                long giaht = ShoppingFragment.carts.get(position).getGiasp();
+                ShoppingFragment.carts.get(position).setSoluong(slmoinhat);
+                long giamoinhat = (giaht*slmoinhat)/slht;
+                ShoppingFragment.carts.get(position).setGiasp(giamoinhat);
+                DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+                finalViewHolder1.tvGiasp.setText(decimalFormat.format(giamoinhat)+"Đ");
+                CartActivity.EvenUltil();
+                if(slmoinhat<2){
+                    finalViewHolder1.btnBotsp.setVisibility(View.INVISIBLE);
+                    finalViewHolder1.btnThemsp.setVisibility(View.VISIBLE);
+                    finalViewHolder1.etSoluongsp.setText(String.valueOf(slmoinhat));
+                }else {
+                    finalViewHolder1.btnBotsp.setVisibility(View.VISIBLE);
+                    finalViewHolder1.btnThemsp.setVisibility(View.VISIBLE);
+                    finalViewHolder1.etSoluongsp.setText(String.valueOf(slmoinhat));
+                }
 
-        return null;
+            }
+        });
+        return view ;
     }
 }

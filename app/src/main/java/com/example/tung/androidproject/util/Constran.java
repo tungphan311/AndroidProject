@@ -17,4 +17,6 @@ public class Constran {
 
     public static String getPhone_URL = "http://" + localhost + "/server/getphone.php?page=";
     public static String getLaptop_URL = "http://" + localhost + "/server/getlaptop.php?page=";
+    public static String getTablet_URL = "http://" + localhost + "/server/gettablet.php?page=";
+    public static String getPhukien_URL = "http://" + localhost + "/server/getphukien.php?page=";
 }

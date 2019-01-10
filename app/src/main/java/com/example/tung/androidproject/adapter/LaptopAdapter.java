@@ -1,5 +1,6 @@
 package com.example.tung.androidproject.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -47,6 +48,7 @@ public class LaptopAdapter extends BaseAdapter {
         public LinearLayout linearLayoutLaptop;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LaptopAdapter.ViewHolder viewHolder = null;

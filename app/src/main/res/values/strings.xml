@@ -30,4 +30,9 @@
     <string name="tb_detail">Chi tiết sản phẩm</string>
     <string name="btn_addToCart">Thêm vào giỏ hàng</string>
     <string name="tv_motasp">Mô tả sản phẩm: </string>
+    <string name="tb_cart">Giỏ hàng</string>
+    <string name="tv_noitem">Giỏ hàng bạn đang trống</string>
+    <string name="tv_totalCost">Tổng tiền: </string>
+    <string name="btn_thanhtoan">Thanh toán giỏ hàng</string>
+    <string name="btn_tieptucmuahang">Tiếp tục mua hàng</string>
 </resources>

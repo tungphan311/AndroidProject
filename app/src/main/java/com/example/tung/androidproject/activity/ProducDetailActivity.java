@@ -1,5 +1,6 @@
 package com.example.tung.androidproject.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
 import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.fragment.ShoppingFragment;
+import com.example.tung.androidproject.model.Cart;
 import com.example.tung.androidproject.model.Sanpham;
 import com.squareup.picasso.Picasso;
 
@@ -25,6 +28,14 @@ public class ProducDetailActivity extends AppCompatActivity {
     Spinner spinner;
     Button btnAddToCart;
 
+    // khởi tạo các biến để nhận giá trị được gửi tới
+    int masp = 0;
+    String tensp = "";
+    int giasp = 0;
+    String hinhanhsp = "";
+    String motasp = "";
+    int maloaisp =0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +45,46 @@ public class ProducDetailActivity extends AppCompatActivity {
         ActionToolBar();
         GetDetail();
         CatchEventSpinner();
+        btnAddToCartOnClick();
+    }
+
+    private void btnAddToCartOnClick() {
+        btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ShoppingFragment.carts.size() > 0) {
+                    boolean exit = false;
+                    int count = Integer.parseInt(spinner.getSelectedItem().toString());
+                    for (int i = 0; i<ShoppingFragment.carts.size(); i++) {
+                        if (ShoppingFragment.carts.get(i).getMasp() == masp) {
+                            ShoppingFragment.carts.get(i).setSoluong(ShoppingFragment.carts.get(i).getSoluong() + count);
+
+                            if (ShoppingFragment.carts.get(i).getSoluong() >= 10) {
+                                ShoppingFragment.carts.get(i).setSoluong(10);
+                            }
+
+                            ShoppingFragment.carts.get(i).setGiasp(giasp*ShoppingFragment.carts.get(i).getSoluong());
+                            exit = true;
+                        }
+                    }
+                    if (exit == false) {
+                        int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
+                        long totalCost = soluong*giasp;
+
+                        ShoppingFragment.carts.add(new Cart(masp, tensp, totalCost, hinhanhsp, soluong));
+                    }
+                }
+                else {
+                    int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
+                    long totalCost = soluong*giasp;
+
+                    ShoppingFragment.carts.add(new Cart(masp, tensp, totalCost, hinhanhsp, soluong));
+                }
+
+                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void CatchEventSpinner() {
@@ -43,15 +94,6 @@ public class ProducDetailActivity extends AppCompatActivity {
     }
 
     private void GetDetail() {
-
-        // khởi tạo các biến để nhận giá trị được gửi tới
-        int masp = 0;
-        String tensp = "";
-        int giasp = 0;
-        String hinhanhsp = "";
-        String motasp = "";
-        int maloaisp =0;
-
         // tiến hành gán các giá trị được gửi tới
         Sanpham sanpham = (Sanpham) getIntent().getSerializableExtra("thongtinsanpham");
         masp = sanpham.getMasp();

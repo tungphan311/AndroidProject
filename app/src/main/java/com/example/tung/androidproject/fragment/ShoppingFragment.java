@@ -13,6 +13,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -30,6 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.activity.CartActivity;
 import com.example.tung.androidproject.activity.LaptopActivity;
 import com.example.tung.androidproject.activity.MainScreen;
 import com.example.tung.androidproject.activity.PhoneActivity;
@@ -37,6 +41,7 @@ import com.example.tung.androidproject.activity.PhukienActivity;
 import com.example.tung.androidproject.activity.TabletActivity;
 import com.example.tung.androidproject.adapter.LoaisanphamAdapter;
 import com.example.tung.androidproject.adapter.SanphamAdapter;
+import com.example.tung.androidproject.model.Cart;
 import com.example.tung.androidproject.model.Loaisanpham;
 import com.example.tung.androidproject.model.Sanpham;
 import com.example.tung.androidproject.util.CheckConnection;
@@ -72,6 +77,8 @@ public class ShoppingFragment extends Fragment {
     String tenloaisp = "";
     String hinhanhloaisp = "";
 
+    public static ArrayList<Cart> carts;
+
     public ShoppingFragment() {
         // Required empty public constructor
     }
@@ -96,6 +103,8 @@ public class ShoppingFragment extends Fragment {
 
         Anhxa(view);
 
+        setHasOptionsMenu(true);
+
         if (CheckConnection.haveNetworkConnection(getActivity().getApplicationContext())) {
             createMenuBar();
 
@@ -113,6 +122,22 @@ public class ShoppingFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.cart, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_cart:
+                Intent intent = new Intent(getActivity().getApplicationContext(), CartActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void Anhxa(View view) {
@@ -134,6 +159,13 @@ public class ShoppingFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
         recyclerView.setAdapter(sanphamAdapter);
+
+        if (carts != null) {
+
+        }
+        else {
+            carts = new ArrayList<>();
+        }
     }
 
     @SuppressLint("RestrictedApi")

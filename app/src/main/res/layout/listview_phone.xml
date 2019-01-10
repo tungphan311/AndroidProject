@@ -38,14 +38,10 @@
                     android:id="@+id/textViewNamePhone"
                     android:textColor="#3138b9"
                     android:textSize="18sp"
-                    android:layout_margin="5dp"
+                    android:layout_margin="3dp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:text="@string/tb_phone"
                     tools:layout_editor_absoluteY="76dp"
                     tools:layout_editor_absoluteX="0dp"/>
@@ -53,7 +49,7 @@
                 <TextView
                     android:id="@+id/textViewPricePhone"
                     android:text="@string/tb_phone"
-                    android:layout_margin="5dp"
+                    android:layout_margin="3dp"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#dc2525"
@@ -63,7 +59,7 @@
                 <TextView
                     android:id="@+id/textViewDescriptionPhone"
                     android:text="@string/tb_phone"
-                    android:layout_margin="5dp"
+                    android:layout_margin="3dp"
                     android:textSize="16sp"
                     android:textColor="@android:color/darker_gray"
                     android:layout_width="wrap_content"

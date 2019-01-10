@@ -33,10 +33,9 @@ public class PhoneActivity extends AppCompatActivity {
     Toolbar toolbarPhone;
     ListView listViewPhone;
     PhoneAdapter phoneAdapter;
-    ArrayList<Sanpham> listPhone;
-
-    int idPhone = 0;
-    int page = 1;
+    ArrayList<Sanpham> arrayListPhone;
+    int idPhone =0;
+    int page =1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +51,7 @@ public class PhoneActivity extends AppCompatActivity {
         }
         else {
             CheckConnection.ShowToast_Short(getApplicationContext(), Constran.connectionErrorMessage);
+            finish();
         }
 
     }
@@ -59,7 +59,7 @@ public class PhoneActivity extends AppCompatActivity {
     private void GetDataPhone(int Page) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         String pathPhone = Constran.getPhone_URL + String.valueOf(Page);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, pathPhone, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(pathPhone, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 int idPhone = 0;
@@ -67,22 +67,20 @@ public class PhoneActivity extends AppCompatActivity {
                 int pricePhone = 0;
                 String imagePhone = "";
                 String descriptionPhone = "";
-                int maloaisp =0;
-
-                if (response != null) {
+                int idProductPhone =0;
+                if (response !=null){
                     try {
                         JSONArray jsonArray = new JSONArray(response);
-
-                        for (int i=0; i<jsonArray.length(); i++) {
+                        for (int i = 0; i < jsonArray.length(); i++){
                             JSONObject jsonObject= jsonArray.getJSONObject(i);
                             idPhone = jsonObject.getInt("masanpham");
                             namePhone = jsonObject.getString("tensanpham");
                             pricePhone = jsonObject.getInt("giasanpham");
                             imagePhone=jsonObject.getString("hinhanhsanpham");
                             descriptionPhone = jsonObject.getString("motasanpham");
-                            maloaisp = jsonObject.getInt("maloaisanpham");
+                            idProductPhone = jsonObject.getInt("maloaisanpham");
 
-                            listPhone.add(new Sanpham(idPhone, namePhone, pricePhone, imagePhone, descriptionPhone, maloaisp));
+                            arrayListPhone.add(new Sanpham(idPhone,namePhone,pricePhone,imagePhone,descriptionPhone,idProductPhone));
                             phoneAdapter.notifyDataSetChanged();
                         }
                     } catch (JSONException e) {
@@ -95,14 +93,14 @@ public class PhoneActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 CheckConnection.ShowToast_Short(getApplicationContext(), Constran.connectionErrorMessage);
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> param = new HashMap<String,String>();
-                param.put("maloaisanpham", String.valueOf(idPhone));
-                return super.getParams();
-            }
-        };
+        }); //{
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                HashMap<String,String> param = new HashMap<String,String>();
+//                param.put("maloaisanpham", String.valueOf(idPhone));
+//                return super.getParams();
+//            }
+        //};
         requestQueue.add(stringRequest);
     }
 
@@ -119,14 +117,14 @@ public class PhoneActivity extends AppCompatActivity {
 
     private void GetMaLoaiSP() {
         idPhone = getIntent().getIntExtra("maloaisanpham", -1);
-        Log.d("giatrsp",idPhone +"");
+        Log.d("gia tri maloaisanpham: ",idPhone +"");
     }
 
     private void Anhxa() {
         toolbarPhone = findViewById(R.id.toolBarPhone);
         listViewPhone = findViewById(R.id.listViewPhone);
-        listPhone = new ArrayList<>();
-        phoneAdapter = new PhoneAdapter(getApplicationContext(), listPhone);
+        arrayListPhone = new ArrayList<>();
+        phoneAdapter = new PhoneAdapter(getApplicationContext(), arrayListPhone);
         listViewPhone.setAdapter(phoneAdapter);
     }
 }

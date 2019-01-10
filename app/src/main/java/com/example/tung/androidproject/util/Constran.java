@@ -15,5 +15,5 @@ public class Constran {
     public static String API_URL = "http://" + localhost + "/server/";
     public static String getLoaiSP_URL = "http://" + localhost + "/server/getloaisanpham.php";
     public static String getSPMoiNhat_URL = "http://" + localhost + "/server/getsanphammoinhat.php";
-    public static String getPhone_URL = "http://" + localhost + "/server/getsanpham.php?page=";
+    public static String getPhone_URL = "http://" + localhost + "/server/getphone.php?page=";
 }

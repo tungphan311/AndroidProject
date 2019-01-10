@@ -108,6 +108,8 @@ public class TabletActivity extends AppCompatActivity {
                 String imageTablet = "";
                 String descriptionTablet = "";
                 int idloaisp =0;
+                int mahangsanxuat = 0;
+
                 if (response !=null && response.length() != 2){
                     listViewTablet.removeFooterView(footerView);
                     try {
@@ -120,8 +122,9 @@ public class TabletActivity extends AppCompatActivity {
                             imageTablet=jsonObject.getString("hinhanhsanpham");
                             descriptionTablet = jsonObject.getString("motasanpham");
                             idloaisp = jsonObject.getInt("maloaisanpham");
+                            mahangsanxuat = jsonObject.getInt("mahangsanxuat");
 
-                            arrayListTablet.add(new Sanpham(idTablet,nameTablet,priceTablet,imageTablet,descriptionTablet,idloaisp));
+                            arrayListTablet.add(new Sanpham(idTablet,nameTablet,priceTablet,imageTablet,descriptionTablet,idloaisp, mahangsanxuat));
                             tabletAdapter.notifyDataSetChanged();
                         }
                     } catch (JSONException e) {

@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -134,7 +135,7 @@ public class MeFragment extends Fragment {
             spnHangsx.setAdapter(arrayAdapter);
         }
         else if (Loaisp == 3) {
-            String[] listHangsx = new String[] {"Tất cả", "Ipad", "Samsung", "Huawei", "Lenovo", "Masstel"};
+            String[] listHangsx = new String[] {"Tất cả", "Ipad", "Samsung", "Huawei", "Lenovo", "Masstel", "Sony", "Nexus"};
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listHangsx);
             spnHangsx.setAdapter(arrayAdapter);
         }
@@ -164,6 +165,71 @@ public class MeFragment extends Fragment {
                         if (!editText.isSelected())
                             search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
                         spinnerHangsxGetData(position);
+                        spnHangsx.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
+                                switch (index) {
+                                    case 0:
+                                        hangsx = index;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 1:
+                                        hangsx = index;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 2:
+                                        hangsx = index;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 3:
+                                        hangsx = index;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 4:
+                                        hangsx = index;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 5:
+                                        hangsx = index;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 6:
+                                        hangsx = index;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 7:
+                                        hangsx = index;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 8:
+                                        hangsx = index;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
                         break;
 
                     case 2:
@@ -172,6 +238,59 @@ public class MeFragment extends Fragment {
                         if (!editText.isSelected())
                             search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
                         spinnerHangsxGetData(position);
+                        spnHangsx.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
+                                switch (index) {
+                                    case 0:
+                                        hangsx = 0;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 1:
+                                        hangsx = index + 8;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 2:
+                                        hangsx = index + 8;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 3:
+                                        hangsx = index + 8;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 4:
+                                        hangsx = index + 8;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 5:
+                                        hangsx = index + 8;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 6:
+                                        hangsx = index + 8;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
                         break;
 
                     case 3:
@@ -181,6 +300,65 @@ public class MeFragment extends Fragment {
                             search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
 
                         spinnerHangsxGetData(position);
+                        spnHangsx.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
+                                switch (index) {
+                                    case 0:
+                                        hangsx = 0;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 1:
+                                        hangsx = index + 16;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 2:
+                                        hangsx = index + 16;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 3:
+                                        hangsx = index + 16;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 4:
+                                        hangsx = index + 16;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 5:
+                                        hangsx = index + 16;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 6:
+                                        hangsx = index + 16;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 7:
+                                        hangsx = index + 16;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
                         break;
 
                     case 4:
@@ -188,7 +366,55 @@ public class MeFragment extends Fragment {
                         hangsx = 0;
                         if (!editText.isSelected())
                             search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+
                         spinnerHangsxGetData(position);
+                        spnHangsx.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
+                                switch (index) {
+                                    case 0:
+                                        hangsx = 0;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 1:
+                                        hangsx = index + 23;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 2:
+                                        hangsx = index + 23;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 3:
+                                        hangsx = index + 23;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 4:
+                                        hangsx = index + 23;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+
+                                    case 5:
+                                        hangsx = index + 23;
+                                        if (!editText.isSelected())
+                                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
                         break;
                 }
 
@@ -320,6 +546,9 @@ public class MeFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }
+                else {
+
                 }
             }
         }, new com.android.volley.Response.ErrorListener() {

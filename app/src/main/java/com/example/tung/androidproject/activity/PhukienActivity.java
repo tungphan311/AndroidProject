@@ -107,6 +107,8 @@ public class PhukienActivity extends AppCompatActivity {
                 String imagePhukien = "";
                 String descriptionPhukien = "";
                 int idloaisp =0;
+                int mahangsanxuat = 0;
+
                 if (response !=null && response.length() != 2){
                     listViewphukien.removeFooterView(footerView);
                     try {
@@ -119,8 +121,9 @@ public class PhukienActivity extends AppCompatActivity {
                             imagePhukien=jsonObject.getString("hinhanhsanpham");
                             descriptionPhukien = jsonObject.getString("motasanpham");
                             idloaisp = jsonObject.getInt("maloaisanpham");
+                            mahangsanxuat = jsonObject.getInt("mahangsanxuat");
 
-                            arrayListPhukien.add(new Sanpham(idPhukien,namePhukien,pricePhukien,imagePhukien,descriptionPhukien,idloaisp));
+                            arrayListPhukien.add(new Sanpham(idPhukien,namePhukien,pricePhukien,imagePhukien,descriptionPhukien,idloaisp, mahangsanxuat));
                             phukienAdapter.notifyDataSetChanged();
                         }
                     } catch (JSONException e) {

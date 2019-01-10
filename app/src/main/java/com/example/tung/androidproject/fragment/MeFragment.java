@@ -1,20 +1,68 @@
 package com.example.tung.androidproject.fragment;
 
-
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.activity.ProducDetailActivity;
+import com.example.tung.androidproject.adapter.LoaisanphamAdapter;
+import com.example.tung.androidproject.adapter.LoaispAdapter;
+import com.example.tung.androidproject.adapter.SpAdapter;
+import com.example.tung.androidproject.model.Loaisanpham;
+import com.example.tung.androidproject.model.Sanpham;
+import com.example.tung.androidproject.util.Constran;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MeFragment extends Fragment {
-
+    RecyclerView recyclerView;
+    ArrayList<Sanpham> listSanpham;
+    SpAdapter spAdapter;
+    EditText editText;
+    ImageView imageView;
+    String key ="";
+    Toolbar toolbar;
+    ListView listView;
+    ArrayList<Loaisanpham> listLoaisp;
+    LoaispAdapter loaispAdapter;
+    int maloaisp = 0;
+    String tenloaisp ="";
+    String hinhanhloaisp ="";
 
     public MeFragment() {
         // Required empty public constructor
@@ -36,7 +84,179 @@ public class MeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_me, container, false);
+        View view =  inflater.inflate(R.layout.fragment_me, container, false);
+            Anhxa(view);
+            getSanPham();
+            getEvent();
+            check();
+            getLoaisp();
+        return view;
+    }
+
+    private void getLoaisp() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Constran.getLoaiSP_URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if (response != null) {
+                    for (int i=0; i<response.length(); i++) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            maloaisp = jsonObject.getInt("maloaisanpham");
+                            tenloaisp = jsonObject.getString("tenloaisanpham");
+                            hinhanhloaisp = jsonObject.getString("hinhanhloaisanpham");
+
+                            listLoaisp.add(new Loaisanpham(maloaisp, tenloaisp, hinhanhloaisp));
+                            loaispAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity().getApplicationContext(), "get loaisanpham error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        requestQueue.add(jsonArrayRequest);
+    }
+
+
+    private void check() {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                timsanpham(editText.getText().toString());
+            }
+        });
+    }
+
+
+    private void getEvent() {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timsanpham(editText.getText().toString());
+            }
+        });
+
+    }
+
+    private void getSanPham() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Constran.timkiem_URL, new com.android.volley.Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if(response !=null){
+                    int Masanpham = 0;
+                    String Tensanpham = "";
+                    Integer Giasanpham = 0;
+                    String Hinhanhsanpham="";
+                    String Motasanpham ="";
+                    int Maloaisanpham = 0;
+                    for (int i=0;i<response.length();i++){
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+
+                            Masanpham = jsonObject.getInt("masanpham");
+                            Tensanpham = jsonObject.getString("tensanpham");
+                            Giasanpham = jsonObject.getInt("giasanpham");
+                            Hinhanhsanpham =jsonObject.getString("hinhanhsanpham");
+                            Motasanpham = jsonObject.getString("motasanpham");
+                            Maloaisanpham =jsonObject.getInt("maloaisanpham");
+
+                            listSanpham.add(new Sanpham(Masanpham,Tensanpham,Giasanpham,Hinhanhsanpham,Motasanpham,Maloaisanpham));
+                            spAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+    }
+
+
+    private void Anhxa(View view) {
+        toolbar = view.findViewById(R.id.toolbar);
+        recyclerView = view.findViewById(R.id.rvtimkiemsp);
+        listSanpham = new ArrayList<>();
+        spAdapter = new SpAdapter(getActivity().getApplicationContext(), listSanpham);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
+        recyclerView.setAdapter(spAdapter);
+        editText = view.findViewById(R.id.edt_timkiem);
+        imageView = view.findViewById(R.id.imv_timkiem);
+        listView = view.findViewById(R.id.lv_loaisp);
+        loaispAdapter = new LoaispAdapter(listLoaisp, getActivity().getApplicationContext());
+        listLoaisp = new ArrayList<>();
+    }
+    private void timsanpham(String Key){
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        String duongdan = Constran.timkiem_URL+String.valueOf(Key);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, duongdan, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                listSanpham.clear();
+                int masanpham=0;
+                String tensanpham="";
+                int giasanpham=0;
+                String hinhanhsanpham="";
+                String motasanpham="";
+                int maloaisanpham=0;
+                if (response !=null){
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        for (int i=0;i<response.length();i++){
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            masanpham = jsonObject.getInt("masanpham");
+                            tensanpham = jsonObject.getString("tensanpham");
+                            giasanpham = jsonObject.getInt("giasanpham");
+                            hinhanhsanpham = jsonObject.getString("hinhanhsanpham");
+                            motasanpham = jsonObject.getString("motasanpham");
+                            maloaisanpham = jsonObject.getInt("maloaisanpham");
+                            listSanpham.add(new Sanpham(masanpham,tensanpham,giasanpham,hinhanhsanpham,motasanpham,maloaisanpham));
+                            spAdapter.notifyDataSetChanged();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> param = new HashMap<String, String>();
+                param.put("key",String.valueOf(""));
+                return param;
+            }
+        };
+        requestQueue.add(stringRequest);
+        getEvent();
     }
 
 }

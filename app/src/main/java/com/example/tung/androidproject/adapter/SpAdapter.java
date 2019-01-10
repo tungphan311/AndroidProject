@@ -2,6 +2,7 @@ package com.example.tung.androidproject.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.activity.ProducDetailActivity;
 import com.example.tung.androidproject.model.Sanpham;
+import com.example.tung.androidproject.util.CheckConnection;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -60,6 +63,16 @@ public class SpAdapter extends RecyclerView.Adapter<SpAdapter.SanphamHoder>{
             imghinhsanpham = itemView.findViewById(R.id.iv_sp);
             txtgiasanpham = itemView.findViewById(R.id.tv_gia_sp);
             txttensanpham = itemView.findViewById(R.id.tv_ten_sp);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ProducDetailActivity.class);
+                    intent.putExtra("thongtinsanpham",listsp.get(getLayoutPosition()));
+                    CheckConnection.ShowToast_Short(context,listsp.get(getLayoutPosition()).getTensp());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

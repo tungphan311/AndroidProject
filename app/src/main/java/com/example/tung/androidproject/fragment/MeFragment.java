@@ -1,6 +1,7 @@
 package com.example.tung.androidproject.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -16,16 +17,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.activity.ProducDetailActivity;
+import com.example.tung.androidproject.adapter.LoaisanphamAdapter;
+import com.example.tung.androidproject.adapter.LoaispAdapter;
 import com.example.tung.androidproject.adapter.SpAdapter;
+import com.example.tung.androidproject.model.Loaisanpham;
 import com.example.tung.androidproject.model.Sanpham;
 import com.example.tung.androidproject.util.Constran;
 
@@ -49,6 +57,12 @@ public class MeFragment extends Fragment {
     ImageView imageView;
     String key ="";
     Toolbar toolbar;
+    ListView listView;
+    ArrayList<Loaisanpham> listLoaisp;
+    LoaispAdapter loaispAdapter;
+    int maloaisp = 0;
+    String tenloaisp ="";
+    String hinhanhloaisp ="";
 
     public MeFragment() {
         // Required empty public constructor
@@ -75,8 +89,41 @@ public class MeFragment extends Fragment {
             getSanPham();
             getEvent();
             check();
+            getLoaisp();
         return view;
     }
+
+    private void getLoaisp() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Constran.getLoaiSP_URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if (response != null) {
+                    for (int i=0; i<response.length(); i++) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            maloaisp = jsonObject.getInt("maloaisanpham");
+                            tenloaisp = jsonObject.getString("tenloaisanpham");
+                            hinhanhloaisp = jsonObject.getString("hinhanhloaisanpham");
+
+                            listLoaisp.add(new Loaisanpham(maloaisp, tenloaisp, hinhanhloaisp));
+                            loaispAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity().getApplicationContext(), "get loaisanpham error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        requestQueue.add(jsonArrayRequest);
+    }
+
 
     private void check() {
         editText.addTextChangedListener(new TextWatcher() {
@@ -159,6 +206,9 @@ public class MeFragment extends Fragment {
         recyclerView.setAdapter(spAdapter);
         editText = view.findViewById(R.id.edt_timkiem);
         imageView = view.findViewById(R.id.imv_timkiem);
+        listView = view.findViewById(R.id.lv_loaisp);
+        loaispAdapter = new LoaispAdapter(listLoaisp, getActivity().getApplicationContext());
+        listLoaisp = new ArrayList<>();
     }
     private void timsanpham(String Key){
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());

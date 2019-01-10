@@ -28,4 +28,7 @@
     <string name="tb_laptop">Laptop</string>
     <string name="tb_tablet">Tablet</string>
     <string name="tb_phukien">Phụ kiện</string>
+    <string name="tb_detail">Chi tiết sản phẩm</string>
+    <string name="btn_addToCart">Thêm vào giỏ hàng</string>
+    <string name="tv_motasp">Mô tả sản phẩm: </string>
 </resources>

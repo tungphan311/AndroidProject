@@ -1,8 +1,5 @@
 package com.example.tung.androidproject.util;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class Constran {
     public static String connectionErrorMessage = "Vui lòng kiểm tra kết nối Internet";
     public static final int REQUEST_CODE_DANGNHAP = 100;
@@ -18,4 +15,6 @@ public class Constran {
     public static String getSPMoiNhat_URL = "http://" + localhost + "/server/getspmoinhat.php";
     public static String timkiem_URL = "http://"+ localhost + "/server/timkiemsp.php?key=";
 
+    public static String getPhone_URL = "http://" + localhost + "/server/getphone.php?page=";
+    public static String getLaptop_URL = "http://" + localhost + "/server/getlaptop.php?page=";
 }

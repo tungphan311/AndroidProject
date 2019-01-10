@@ -3,6 +3,8 @@ package com.example.tung.androidproject.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -49,7 +51,7 @@ public class ProducDetailActivity extends AppCompatActivity {
     }
 
     private void btnAddToCartOnClick() {
-        btnAddToCart.setOnClickListener(new View.OnClickListener() {
+        btnAddToCart.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ShoppingFragment.carts.size() > 0) {
@@ -133,5 +135,20 @@ public class ProducDetailActivity extends AppCompatActivity {
         tvMota = findViewById(R.id.tv_motasp);
         spinner = findViewById(R.id.spinner);
         btnAddToCart = findViewById(R.id.btn_addToCart);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.cart,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_cart:
+                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

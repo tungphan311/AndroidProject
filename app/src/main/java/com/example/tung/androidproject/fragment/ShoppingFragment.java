@@ -161,7 +161,6 @@ public class ShoppingFragment extends Fragment {
         recyclerView.setAdapter(sanphamAdapter);
 
         if (carts != null) {
-
         }
         else {
             carts = new ArrayList<>();

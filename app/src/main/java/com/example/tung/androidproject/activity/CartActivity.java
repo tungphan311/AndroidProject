@@ -1,8 +1,12 @@
 package com.example.tung.androidproject.activity;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,11 +16,13 @@ import com.example.tung.androidproject.R;
 import com.example.tung.androidproject.adapter.CartAdapter;
 import com.example.tung.androidproject.fragment.ShoppingFragment;
 
+import java.text.DecimalFormat;
+
 public class CartActivity extends AppCompatActivity {
 
     ListView listViewCart;
     TextView tvThongbao;
-    TextView tvTongtien;
+    static TextView tvTongtien;
     Button btnThanhtoan, btnMuatiep;
     android.support.v7.widget.Toolbar toolbarCart;
     CartAdapter cartAdapter;
@@ -29,17 +35,68 @@ public class CartActivity extends AppCompatActivity {
         Anhxa();
         ActionToolbar();
         CheckData();
+        EvenUltil();
+        CatchOnItemListView();
+    }
+
+    private void CatchOnItemListView() {
+        listViewCart.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+                builder.setTitle("Xác nhận xóa sản phẩm");
+                builder.setMessage("Bạn có chắc xóa sản phẩm này");
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        if (ShoppingFragment.carts.size()<=0){
+                            tvThongbao.setVisibility(View.VISIBLE);
+                        }else {
+                            ShoppingFragment.carts.remove(position);
+                            cartAdapter.notifyDataSetChanged();
+                            EvenUltil();
+                            if (ShoppingFragment.carts.size()<=0){
+                                tvThongbao.setVisibility(View.VISIBLE);
+                            }else {
+                                tvThongbao.setVisibility(View.VISIBLE);
+                                cartAdapter.notifyDataSetChanged();
+                                EvenUltil();
+                            }
+                        }
+                    }
+                });
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        cartAdapter.notifyDataSetChanged();
+                        EvenUltil();
+                    }
+                });
+                builder.show();
+                return true;
+            }
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    public static void EvenUltil() {
+        long tongtien = 0;
+        for (int i = 0; i<ShoppingFragment.carts.size();i++){
+            tongtien += ShoppingFragment.carts.get(i).getGiasp();
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        tvTongtien.setText(decimalFormat.format(tongtien)+ "đ");
     }
 
     private void CheckData() {
         if (ShoppingFragment.carts.size() <= 0) {
             cartAdapter.notifyDataSetChanged();
-            tvTongtien.setVisibility(View.VISIBLE);
+            tvThongbao.setVisibility(View.VISIBLE);
             listViewCart.setVisibility(View.INVISIBLE);
         }
         else {
             cartAdapter.notifyDataSetChanged();
-            tvTongtien.setVisibility(View.INVISIBLE);
+            tvThongbao.setVisibility(View.INVISIBLE);
             listViewCart.setVisibility(View.VISIBLE);
         }
     }

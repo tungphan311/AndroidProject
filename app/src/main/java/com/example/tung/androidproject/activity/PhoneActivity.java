@@ -109,6 +109,8 @@ public class PhoneActivity extends AppCompatActivity {
                 String imagePhone = "";
                 String descriptionPhone = "";
                 int idloaisp =0;
+                int mahangsanxuat = 0;
+
                 if (response !=null && response.length() != 2){
                     listViewPhone.removeFooterView(footerView);
                     try {
@@ -121,8 +123,9 @@ public class PhoneActivity extends AppCompatActivity {
                             imagePhone=jsonObject.getString("hinhanhsanpham");
                             descriptionPhone = jsonObject.getString("motasanpham");
                             idloaisp = jsonObject.getInt("maloaisanpham");
+                            mahangsanxuat = jsonObject.getInt("mahangsanxuat");
 
-                            arrayListPhone.add(new Sanpham(idPhone,namePhone,pricePhone,imagePhone,descriptionPhone,idloaisp));
+                            arrayListPhone.add(new Sanpham(idPhone,namePhone,pricePhone,imagePhone,descriptionPhone,idloaisp, mahangsanxuat));
                             phoneAdapter.notifyDataSetChanged();
                         }
                     } catch (JSONException e) {

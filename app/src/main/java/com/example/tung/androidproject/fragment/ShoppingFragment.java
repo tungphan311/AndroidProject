@@ -247,6 +247,7 @@ public class ShoppingFragment extends Fragment {
                     String hinhanhsp = "";
                     String motasp = "";
                     int maloaisp = 0;
+                    int mahangsanxuat = 0;
 
                     for (int i= 0; i<response.length(); i++) {
                         try {
@@ -258,8 +259,9 @@ public class ShoppingFragment extends Fragment {
                             hinhanhsp = jsonObject.getString("hinhanhsanpham");
                             motasp = jsonObject.getString("motasanpham");
                             maloaisp = jsonObject.getInt("maloaisanpham");
+                            mahangsanxuat = jsonObject.getInt("mahangsanxuat");
 
-                            listSanpham.add(new Sanpham(masp, tensp, giasp, hinhanhsp, motasp, maloaisp));
+                            listSanpham.add(new Sanpham(masp, tensp, giasp, hinhanhsp, motasp, maloaisp, mahangsanxuat));
                             sanphamAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();

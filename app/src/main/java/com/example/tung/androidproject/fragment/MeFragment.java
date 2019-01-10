@@ -15,9 +15,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -35,6 +38,7 @@ import com.example.tung.androidproject.adapter.LoaispAdapter;
 import com.example.tung.androidproject.adapter.SpAdapter;
 import com.example.tung.androidproject.model.Loaisanpham;
 import com.example.tung.androidproject.model.Sanpham;
+import com.example.tung.androidproject.util.CheckConnection;
 import com.example.tung.androidproject.util.Constran;
 
 import org.json.JSONArray;
@@ -43,6 +47,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -63,6 +68,11 @@ public class MeFragment extends Fragment {
     int maloaisp = 0;
     String tenloaisp ="";
     String hinhanhloaisp ="";
+
+    int loaisp;
+    int hangsx;
+
+    Spinner spnLoaisp, spnHangsx, spnSort;
 
     public MeFragment() {
         // Required empty public constructor
@@ -85,47 +95,110 @@ public class MeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_me, container, false);
+
+        if (CheckConnection.haveNetworkConnection(getActivity().getApplicationContext())) {
             Anhxa(view);
-            getSanPham();
-            getEvent();
             check();
-            getLoaisp();
+
+            spinnerLoaispGetData();
+        }
+        else {
+            CheckConnection.ShowToast_Short(getActivity().getApplicationContext(), Constran.connectionErrorMessage);
+            getActivity().finish();
+        }
+
         return view;
     }
 
-    private void getLoaisp() {
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Constran.getLoaiSP_URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                if (response != null) {
-                    for (int i=0; i<response.length(); i++) {
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            maloaisp = jsonObject.getInt("maloaisanpham");
-                            tenloaisp = jsonObject.getString("tenloaisanpham");
-                            hinhanhloaisp = jsonObject.getString("hinhanhloaisanpham");
+    private void spinnerLoaispGetData() {
+        String[] listLoaisp = new String[] {"Tất cả", "Điện thoại", "Laptop", "Tablet", "Phụ kiện"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listLoaisp);
+        spnLoaisp.setAdapter(arrayAdapter);
+    }
 
-                            listLoaisp.add(new Loaisanpham(maloaisp, tenloaisp, hinhanhloaisp));
-                            loaispAdapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
+    private void spinnerHangsxNull() {
+        String[] listHangsx = new String[] {"Tất cả"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listHangsx);
+        spnHangsx.setAdapter(arrayAdapter);
+    }
+
+    private void spinnerHangsxGetData(int Loaisp) {
+        if (Loaisp == 1) {
+            String[] listHangsx = new String[] {"Tất cả", "Iphone", "Samsung", "Xiaomi", "Zenphone", "Oppo", "Huawei", "HTC", "Vivo"};
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listHangsx);
+            spnHangsx.setAdapter(arrayAdapter);
+        }
+        else if (Loaisp == 2) {
+            String[] listHangsx = new String[] {"Tất cả", "Asus", "Dell", "Macbook", "HP", "Acer", "MSI"};
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listHangsx);
+            spnHangsx.setAdapter(arrayAdapter);
+        }
+        else if (Loaisp == 3) {
+            String[] listHangsx = new String[] {"Tất cả", "Ipad", "Samsung", "Huawei", "Lenovo", "Masstel"};
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listHangsx);
+            spnHangsx.setAdapter(arrayAdapter);
+        }
+        else if (Loaisp == 4) {
+            String[] listHangsx = new String[] {"Tất cả", "Bàn phím", "Chuột", "Tai nghe", "USB/ Ổ cứng", "Cáp sạc"};
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listHangsx);
+            spnHangsx.setAdapter(arrayAdapter);
+        }
+    }
+
+    private void check() {
+        spnLoaisp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity().getApplicationContext(), "get loaisanpham error", Toast.LENGTH_SHORT).show();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        loaisp = 0;
+                        hangsx = 0;
+                        if (!editText.isSelected())
+                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                        spinnerHangsxNull();
+                        break;
+
+                    case 1:
+                        loaisp = position;
+                        hangsx = 0;
+                        if (!editText.isSelected())
+                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                        spinnerHangsxGetData(position);
+                        break;
+
+                    case 2:
+                        loaisp = position;
+                        hangsx = 0;
+                        if (!editText.isSelected())
+                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                        spinnerHangsxGetData(position);
+                        break;
+
+                    case 3:
+                        loaisp = position;
+                        hangsx = 0;
+                        if (!editText.isSelected())
+                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+
+                        spinnerHangsxGetData(position);
+                        break;
+
+                    case 4:
+                        loaisp = position;
+                        hangsx = 0;
+                        if (!editText.isSelected())
+                            search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
+                        spinnerHangsxGetData(position);
+                        break;
+                }
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
-        requestQueue.add(jsonArrayRequest);
-    }
-
-
-    private void check() {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -139,62 +212,11 @@ public class MeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                timsanpham(editText.getText().toString());
-            }
-        });
-    }
-
-
-    private void getEvent() {
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timsanpham(editText.getText().toString());
+                search(editText.getText().toString(), String.valueOf(loaisp), String.valueOf(hangsx));
             }
         });
 
     }
-
-    private void getSanPham() {
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Constran.timkiem_URL, new com.android.volley.Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                if(response !=null){
-                    int Masanpham = 0;
-                    String Tensanpham = "";
-                    Integer Giasanpham = 0;
-                    String Hinhanhsanpham="";
-                    String Motasanpham ="";
-                    int Maloaisanpham = 0;
-                    for (int i=0;i<response.length();i++){
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-
-                            Masanpham = jsonObject.getInt("masanpham");
-                            Tensanpham = jsonObject.getString("tensanpham");
-                            Giasanpham = jsonObject.getInt("giasanpham");
-                            Hinhanhsanpham =jsonObject.getString("hinhanhsanpham");
-                            Motasanpham = jsonObject.getString("motasanpham");
-                            Maloaisanpham =jsonObject.getInt("maloaisanpham");
-
-                            listSanpham.add(new Sanpham(Masanpham,Tensanpham,Giasanpham,Hinhanhsanpham,Motasanpham,Maloaisanpham));
-                            spAdapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }, new com.android.volley.Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-    }
-
 
     private void Anhxa(View view) {
         toolbar = view.findViewById(R.id.toolbar);
@@ -206,13 +228,67 @@ public class MeFragment extends Fragment {
         recyclerView.setAdapter(spAdapter);
         editText = view.findViewById(R.id.edt_timkiem);
         imageView = view.findViewById(R.id.imv_timkiem);
-        listView = view.findViewById(R.id.lv_loaisp);
         loaispAdapter = new LoaispAdapter(listLoaisp, getActivity().getApplicationContext());
         listLoaisp = new ArrayList<>();
+
+        spnLoaisp = view.findViewById(R.id.spinner_loaisp);
+        spnHangsx = view.findViewById(R.id.spinner_hangsx);
+        spnSort = view.findViewById(R.id.spinner_sort);
     }
-    private void timsanpham(String Key){
+
+//    private void timsanpham(String Key){
+//        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+//        String duongdan = Constran.timkiem_URL+String.valueOf(Key);
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, duongdan, new com.android.volley.Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                listSanpham.clear();
+//                int masanpham=0;
+//                String tensanpham="";
+//                int giasanpham=0;
+//                String hinhanhsanpham="";
+//                String motasanpham="";
+//                int maloaisanpham=0;
+//
+//                if (response !=null){
+//                    try {
+//                        JSONArray jsonArray = new JSONArray(response);
+//                        for (int i=0;i<response.length();i++){
+//                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                            masanpham = jsonObject.getInt("masanpham");
+//                            tensanpham = jsonObject.getString("tensanpham");
+//                            giasanpham = jsonObject.getInt("giasanpham");
+//                            hinhanhsanpham = jsonObject.getString("hinhanhsanpham");
+//                            motasanpham = jsonObject.getString("motasanpham");
+//                            maloaisanpham = jsonObject.getInt("maloaisanpham");
+//
+//                            listSanpham.add(new Sanpham(masanpham,tensanpham,giasanpham,hinhanhsanpham,motasanpham,maloaisanpham));
+//                            spAdapter.notifyDataSetChanged();
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }, new com.android.volley.Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        }){
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                HashMap<String,String> param = new HashMap<String, String>();
+//                param.put("key",String.valueOf(""));
+//                return param;
+//            }
+//        };
+//        requestQueue.add(stringRequest);
+//    }
+
+    private void search(String Key, final String Maloaisp, final String Mahangsx){
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String duongdan = Constran.timkiem_URL+String.valueOf(Key);
+        String duongdan = Constran.search_URL + String.valueOf(Key);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, duongdan, new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -223,6 +299,8 @@ public class MeFragment extends Fragment {
                 String hinhanhsanpham="";
                 String motasanpham="";
                 int maloaisanpham=0;
+                int mahangsanxuat = 0;
+
                 if (response !=null){
                     try {
                         JSONArray jsonArray = new JSONArray(response);
@@ -234,7 +312,9 @@ public class MeFragment extends Fragment {
                             hinhanhsanpham = jsonObject.getString("hinhanhsanpham");
                             motasanpham = jsonObject.getString("motasanpham");
                             maloaisanpham = jsonObject.getInt("maloaisanpham");
-                            listSanpham.add(new Sanpham(masanpham,tensanpham,giasanpham,hinhanhsanpham,motasanpham,maloaisanpham));
+                            mahangsanxuat = jsonObject.getInt("mahangsanxuat");
+
+                            listSanpham.add(new Sanpham(masanpham,tensanpham,giasanpham,hinhanhsanpham,motasanpham,maloaisanpham, mahangsanxuat));
                             spAdapter.notifyDataSetChanged();
                         }
                     } catch (JSONException e) {
@@ -252,11 +332,11 @@ public class MeFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> param = new HashMap<String, String>();
                 param.put("key",String.valueOf(""));
+                param.put("maloaisp", String.valueOf(Maloaisp));
+                param.put("mahangsx", String.valueOf(Mahangsx));
                 return param;
             }
         };
         requestQueue.add(stringRequest);
-        getEvent();
     }
-
 }

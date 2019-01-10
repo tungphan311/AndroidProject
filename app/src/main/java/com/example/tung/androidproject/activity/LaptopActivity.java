@@ -103,6 +103,7 @@ public class LaptopActivity extends AppCompatActivity {
                 String imglap = "";
                 String motalap = "";
                 int maloaisp =0;
+                int mahangsanxuat = 0;
 
                 if (response !=null && response.length() != 2){
                     listViewLaptop.removeFooterView(footerView);
@@ -116,8 +117,9 @@ public class LaptopActivity extends AppCompatActivity {
                             imglap=jsonObject.getString("hinhanhsanpham");
                             motalap = jsonObject.getString("motasanpham");
                             maloaisp = jsonObject.getInt("maloaisanpham");
+                            mahangsanxuat = jsonObject.getInt("mahangsanxuat");
 
-                            listLaptop.add(new Sanpham(malap,tenlap,gialap,imglap,motalap,maloaisp));
+                            listLaptop.add(new Sanpham(malap,tenlap,gialap,imglap,motalap,maloaisp, mahangsanxuat));
                             laptopAdapter.notifyDataSetChanged();
                         }
                     } catch (JSONException e) {

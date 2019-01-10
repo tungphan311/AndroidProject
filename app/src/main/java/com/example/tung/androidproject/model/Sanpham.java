@@ -9,14 +9,16 @@ public class Sanpham implements Serializable {
     public String hinhanhsp;
     public String motasp;
     public int maloaisp;
+    public int mahangsx;
 
-    public Sanpham(int masp, String tensp, Integer giasp, String hinhanhsp, String motasp, int maloaisp) {
+    public Sanpham(int masp, String tensp, Integer giasp, String hinhanhsp, String motasp, int maloaisp, int mahangsx) {
         this.masp = masp;
         this.tensp = tensp;
         this.giasp = giasp;
         this.hinhanhsp = hinhanhsp;
         this.motasp = motasp;
         this.maloaisp = maloaisp;
+        this.mahangsx = mahangsx;
     }
 
     public int getMasp() {
@@ -65,5 +67,13 @@ public class Sanpham implements Serializable {
 
     public void setMaloaisp(int maloaisp) {
         this.maloaisp = maloaisp;
+    }
+
+    public int getMahangsx() {
+        return mahangsx;
+    }
+
+    public void setMahangsx(int mahangsx) {
+        this.mahangsx = mahangsx;
     }
 }

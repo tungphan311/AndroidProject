@@ -1,9 +1,15 @@
 package com.example.tung.androidproject.activity;
 
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 
@@ -34,6 +40,11 @@ public class PhoneActivity extends AppCompatActivity {
     ListView listViewPhone;
     PhoneAdapter phoneAdapter;
     ArrayList<Sanpham> arrayListPhone;
+    View footerView;
+    boolean isLoading = false;
+    mHandler mHandler;
+    boolean limitData = false; // check xem còn data không
+
     int idPhone =0;
     int page =1;
 
@@ -48,12 +59,42 @@ public class PhoneActivity extends AppCompatActivity {
             GetMaLoaiSP();
             ActionToolbbar();
             GetDataPhone(page);
+            LoadMoreData();
         }
         else {
             CheckConnection.ShowToast_Short(getApplicationContext(), Constran.connectionErrorMessage);
             finish();
         }
 
+    }
+
+    private void LoadMoreData() {
+        listViewPhone.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(PhoneActivity.this, ProductDetail.class);
+                intent.putExtra("thongtinsanpham", arrayListPhone.get(position));
+                startActivity(intent);
+            }
+        });
+
+        listViewPhone.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 &&
+                        isLoading == false && limitData == false) {
+                    isLoading = true;
+                    threadData threadData = new threadData();
+                    threadData.start();
+
+                }
+            }
+        });
     }
 
     private void GetDataPhone(int Page) {
@@ -67,8 +108,9 @@ public class PhoneActivity extends AppCompatActivity {
                 int pricePhone = 0;
                 String imagePhone = "";
                 String descriptionPhone = "";
-                int idProductPhone =0;
-                if (response !=null){
+                int idloaisp =0;
+                if (response !=null && response.length() != 2){
+                    listViewPhone.removeFooterView(footerView);
                     try {
                         JSONArray jsonArray = new JSONArray(response);
                         for (int i = 0; i < jsonArray.length(); i++){
@@ -78,14 +120,19 @@ public class PhoneActivity extends AppCompatActivity {
                             pricePhone = jsonObject.getInt("giasanpham");
                             imagePhone=jsonObject.getString("hinhanhsanpham");
                             descriptionPhone = jsonObject.getString("motasanpham");
-                            idProductPhone = jsonObject.getInt("maloaisanpham");
+                            idloaisp = jsonObject.getInt("maloaisanpham");
 
-                            arrayListPhone.add(new Sanpham(idPhone,namePhone,pricePhone,imagePhone,descriptionPhone,idProductPhone));
+                            arrayListPhone.add(new Sanpham(idPhone,namePhone,pricePhone,imagePhone,descriptionPhone,idloaisp));
                             phoneAdapter.notifyDataSetChanged();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }
+                else {
+                    limitData = true;
+                    listViewPhone.removeFooterView(footerView);
+                    CheckConnection.ShowToast_Short(getApplicationContext(), "Đã hết dữ liệu");
                 }
             }
         }, new Response.ErrorListener() {
@@ -93,14 +140,7 @@ public class PhoneActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 CheckConnection.ShowToast_Short(getApplicationContext(), Constran.connectionErrorMessage);
             }
-        }); //{
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                HashMap<String,String> param = new HashMap<String,String>();
-//                param.put("maloaisanpham", String.valueOf(idPhone));
-//                return super.getParams();
-//            }
-        //};
+        });
         requestQueue.add(stringRequest);
     }
 
@@ -126,5 +166,43 @@ public class PhoneActivity extends AppCompatActivity {
         arrayListPhone = new ArrayList<>();
         phoneAdapter = new PhoneAdapter(getApplicationContext(), arrayListPhone);
         listViewPhone.setAdapter(phoneAdapter);
+
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        footerView = inflater.inflate(R.layout.progressbar, null);
+        mHandler = new mHandler();
+    }
+
+    public class mHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    listViewPhone.addFooterView(footerView);
+                    break;
+
+                case 1:
+                    GetDataPhone(++page);
+                    isLoading = false;
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    }
+
+    public class threadData extends Thread {
+
+        @Override
+        public void run() {
+            mHandler.sendEmptyMessage(0);
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Message msg = mHandler.obtainMessage(1);
+            mHandler.sendMessage(msg);
+            super.run();
+        }
     }
 }

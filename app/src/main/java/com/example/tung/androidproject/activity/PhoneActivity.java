@@ -72,7 +72,7 @@ public class PhoneActivity extends AppCompatActivity {
         listViewPhone.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(PhoneActivity.this, ProductDetail.class);
+                Intent intent = new Intent(PhoneActivity.this, ProducDetailActivity.class);
                 intent.putExtra("thongtinsanpham", arrayListPhone.get(position));
                 startActivity(intent);
             }

@@ -66,7 +66,7 @@ public class LaptopActivity extends AppCompatActivity {
         listViewLaptop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(LaptopActivity.this, ProductDetail.class);
+                Intent intent = new Intent(LaptopActivity.this, ProducDetailActivity.class);
                 intent.putExtra("thongtinsanpham", listLaptop.get(position));
                 startActivity(intent);
             }

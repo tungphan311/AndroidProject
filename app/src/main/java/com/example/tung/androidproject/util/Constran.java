@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Constran {
-
+    public static String connectionErrorMessage = "Vui lòng kiểm tra kết nối Internet";
     public static final int REQUEST_CODE_DANGNHAP = 100;
     public static final int RESULT_CODE_DANGNHAP = 99;
 

@@ -2,6 +2,8 @@ package com.example.tung.androidproject.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,6 +61,7 @@ public class MeFragment extends Fragment {
     EditText editText;
     ImageView imageView;
     String key ="";
+    Toolbar toolbar;
 
     public MeFragment() {
         // Required empty public constructor
@@ -84,26 +87,30 @@ public class MeFragment extends Fragment {
         Anhxa(view);
         getSanPham();
         getEvent();
+        backtookbar();
         return view;
     }
 
+    private void backtookbar() {
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_back_52px);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 getSanPham();
+            }
+        });
+    }
+
     private void getEvent() {
-        editText.addTextChangedListener(new TextWatcher() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            public void onClick(View v) {
                 timsanpham(editText.getText().toString());
             }
         });
+
     }
 
     private void getSanPham() {
@@ -148,6 +155,7 @@ public class MeFragment extends Fragment {
 
 
     private void Anhxa(View view) {
+        toolbar = view.findViewById(R.id.toolbar);
         recyclerView = view.findViewById(R.id.rvtimkiemsp);
         listSanpham = new ArrayList<>();
         spAdapter = new SpAdapter(getActivity().getApplicationContext(), listSanpham);
@@ -163,7 +171,7 @@ public class MeFragment extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, duongdan, new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                listSanpham.clear();
                 int masanpham=0;
                 String tensanpham="";
                 int giasanpham=0;
@@ -203,6 +211,7 @@ public class MeFragment extends Fragment {
             }
         };
         requestQueue.add(stringRequest);
+        getEvent();
     }
 
 }

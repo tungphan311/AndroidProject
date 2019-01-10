@@ -2,6 +2,7 @@ package com.example.tung.androidproject.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
@@ -28,10 +30,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.activity.LaptopActivity;
+import com.example.tung.androidproject.activity.MainScreen;
+import com.example.tung.androidproject.activity.PhoneActivity;
+import com.example.tung.androidproject.activity.PhukienActivity;
+import com.example.tung.androidproject.activity.TabletActivity;
 import com.example.tung.androidproject.adapter.LoaisanphamAdapter;
 import com.example.tung.androidproject.adapter.SanphamAdapter;
 import com.example.tung.androidproject.model.Loaisanpham;
 import com.example.tung.androidproject.model.Sanpham;
+import com.example.tung.androidproject.util.CheckConnection;
 import com.example.tung.androidproject.util.Constran;
 import com.squareup.picasso.Picasso;
 
@@ -88,13 +96,21 @@ public class ShoppingFragment extends Fragment {
 
         Anhxa(view);
 
-        createMenuBar();
+        if (CheckConnection.haveNetworkConnection(getActivity().getApplicationContext())) {
+            createMenuBar();
 
-        setViewFlipper();
+            setViewFlipper();
 
-        getDataLoaiSP();
+            getDataLoaiSP();
 
-        getDataSPMoiNhat();
+            getDataSPMoiNhat();
+
+            itemListViewOnClick();
+        }
+        else {
+            CheckConnection.ShowToast_Short(getActivity().getApplicationContext(), Constran.connectionErrorMessage);
+            getActivity().finish();
+        }
 
         return view;
     }
@@ -108,6 +124,8 @@ public class ShoppingFragment extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
 
         listLoaiSP = new ArrayList<>();
+        listLoaiSP.add(0, new Loaisanpham(0, "Trang chủ",
+                "https://imageog.flaticon.com/icons/png/512/25/25694.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF"));
         loaisanphamAdapter = new LoaisanphamAdapter(listLoaiSP, getActivity().getApplicationContext());
         listView.setAdapter(loaisanphamAdapter);
 
@@ -166,6 +184,7 @@ public class ShoppingFragment extends Fragment {
                             maloaisp = jsonObject.getInt("maloaisanpham");
                             tenloaisp = jsonObject.getString("tenloaisanpham");
                             hinhanhloaisp = jsonObject.getString("hinhanhloaisanpham");
+
                             listLoaiSP.add(new Loaisanpham(maloaisp, tenloaisp, hinhanhloaisp));
                             loaisanphamAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -223,5 +242,73 @@ public class ShoppingFragment extends Fragment {
             }
         });
         requestQueue.add(jsonArrayRequest);
+    }
+
+    private void itemListViewOnClick() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        if (CheckConnection.haveNetworkConnection(getActivity().getApplicationContext())) {
+                            Intent intent = new Intent(getActivity(), MainScreen.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            CheckConnection.ShowToast_Short(getActivity().getApplicationContext(), Constran.connectionErrorMessage);
+                        }
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+
+                    case 1:
+                        if (CheckConnection.haveNetworkConnection(getActivity().getApplicationContext())) {
+                            Intent intent = new Intent(getActivity(), PhoneActivity.class);
+                            intent.putExtra("maloaisanpham", listLoaiSP.get(position).getMaloaisp());
+                            startActivity(intent);
+                        }
+                        else {
+                            CheckConnection.ShowToast_Short(getActivity().getApplicationContext(), Constran.connectionErrorMessage);
+                        }
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+
+                    case 2:
+                        if (CheckConnection.haveNetworkConnection(getActivity().getApplicationContext())) {
+                            Intent intent = new Intent(getActivity(), LaptopActivity.class);
+                            intent.putExtra("maloaisanpham", listLoaiSP.get(position).getMaloaisp());
+                            startActivity(intent);
+                        }
+                        else {
+                            CheckConnection.ShowToast_Short(getActivity().getApplicationContext(), Constran.connectionErrorMessage);
+                        }
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+
+                    case 3:
+                        if (CheckConnection.haveNetworkConnection(getActivity().getApplicationContext())) {
+                            Intent intent = new Intent(getActivity(), TabletActivity.class);
+                            intent.putExtra("maloaisanpham", listLoaiSP.get(position).getMaloaisp());
+                            startActivity(intent);
+                        }
+                        else {
+                            CheckConnection.ShowToast_Short(getActivity().getApplicationContext(), Constran.connectionErrorMessage);
+                        }
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+
+                    case 4:
+                        if (CheckConnection.haveNetworkConnection(getActivity().getApplicationContext())) {
+                            Intent intent = new Intent(getActivity(), PhukienActivity.class);
+                            intent.putExtra("maloaisanpham", listLoaiSP.get(position).getMaloaisp());
+                            startActivity(intent);
+                        }
+                        else {
+                            CheckConnection.ShowToast_Short(getActivity().getApplicationContext(), Constran.connectionErrorMessage);
+                        }
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                }
+            }
+        });
     }
 }

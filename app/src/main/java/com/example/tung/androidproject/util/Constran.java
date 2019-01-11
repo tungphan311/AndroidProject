@@ -27,4 +27,5 @@ public class Constran {
     public static String getUser_URL = "http://" + localhost + "/server/getuser.php";
 
     public static String donhang_URL = "http://" + localhost + "/server/thongtinkh.php";
+    public static String chitietdonhang_URL = "http://" + localhost + "/server/chitietdonhang.php";
 }

@@ -46,7 +46,7 @@ public class CartActivity extends AppCompatActivity {
         btnMuatiep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),ShoppingFragment.class);
+                Intent intent = new Intent(getApplicationContext(),MainScreen.class);
                 startActivity(intent);
             }
         });

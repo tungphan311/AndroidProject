@@ -27,7 +27,8 @@
         <activity android:name=".activity.PhukienActivity" />
         <activity android:name=".activity.ProducDetailActivity" />
         <activity android:name=".activity.CartActivity" />
-        <activity android:name=".activity.ThongtinkhachhangActivity"></activity>
+        <activity android:name=".activity.ThongtinkhachhangActivity" />
+        <activity android:name=".activity.Chucmungactivity"></activity>
     </application>
 
 </manifest>

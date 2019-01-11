@@ -82,7 +82,7 @@ public class CartActivity extends AppCompatActivity {
                             if (ShoppingFragment.carts.size()<=0){
                                 tvThongbao.setVisibility(View.VISIBLE);
                             }else {
-                                tvThongbao.setVisibility(View.VISIBLE);
+                                tvThongbao.setVisibility(View.INVISIBLE);
                                 cartAdapter.notifyDataSetChanged();
                                 EvenUltil();
                             }

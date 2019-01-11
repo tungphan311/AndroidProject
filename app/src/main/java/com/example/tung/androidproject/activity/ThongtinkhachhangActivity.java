@@ -72,7 +72,7 @@ public class ThongtinkhachhangActivity extends AppCompatActivity {
                                         if (response.equals("1")){
                                             ShoppingFragment.carts.clear();
                                             CheckConnection.ShowToast_Short(getApplicationContext(),"Bạn đã thêm dữ liệu giỏ hàng thành công");
-                                            Intent intent = new Intent(getApplicationContext(),ShoppingFragment.class);
+                                            Intent intent = new Intent(getApplicationContext(),MainScreen.class);
                                             startActivity(intent);
                                             CheckConnection.ShowToast_Short(getApplicationContext(),"Mời bạn tiếp tục mua hàng");
                                         }else {

@@ -25,7 +25,7 @@ public class MainScreen extends AppCompatActivity {
 
     private ActionBar toolbar;
 
-    public static boolean isDangNhap = true;
+    public static boolean isDangNhap;
     public static User user;
 
     BottomNavigationView navigation;
@@ -43,7 +43,7 @@ public class MainScreen extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // load app default
-        loadFragment(new ShoppingFragment(), "Shopping");
+        loadFragment(new ShoppingFragment());
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -54,11 +54,11 @@ public class MainScreen extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_shopping:
                     fragment = new ShoppingFragment();
-                    loadFragment(fragment, "Shopping");
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_user:
                     fragment = new MeFragment();
-                    loadFragment(fragment, "Me");
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
                     Intent intent = new Intent(getApplicationContext(), CartActivity.class);
@@ -66,18 +66,18 @@ public class MainScreen extends AppCompatActivity {
                     return true;
                 case R.id.navigation_more:
                     fragment = new MoreFragment();
-                    loadFragment(fragment, "More");
+                    loadFragment(fragment);
                     return true;
             }
             return false;
         }
     };
 
-    private void loadFragment(Fragment fragment, String tag)
+    private void loadFragment(Fragment fragment)
     {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment, tag);
+        transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -91,7 +91,7 @@ public class MainScreen extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(this, "Nhấn lần nữa để thoát", Toast.LENGTH_SHORT).show();
-                    loadFragment(new ShoppingFragment(), "Shopping");
+                    loadFragment(new ShoppingFragment());
                     close = true;
                 }
             }

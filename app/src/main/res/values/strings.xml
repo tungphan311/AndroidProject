@@ -37,4 +37,9 @@
     <string name="btn_thanhtoan">Thanh toán giỏ hàng</string>
     <string name="btn_tieptucmuahang">Tiếp tục mua hàng</string>
     <string name="tv_noresult">Không có sản phẩm</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="tv_gioitinh">Giới tính :</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="namsinh">Năm sinh: </string>
 </resources>

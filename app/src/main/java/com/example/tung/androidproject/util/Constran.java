@@ -1,5 +1,11 @@
 package com.example.tung.androidproject.util;
 
+import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.model.ItemTK;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Constran {
     public static String connectionErrorMessage = "Vui lòng kiểm tra kết nối Internet";
     public static final int REQUEST_CODE_DANGNHAP = 100;
@@ -23,4 +29,21 @@ public class Constran {
     public static String getPhukien_URL = "http://" + localhost + "/server/getphukien.php?page=";
 
     public static String getUser_URL = "http://" + localhost + "/server/getuser.php";
+    public static String insertUser_URL = "http://" + localhost + "/server/insert_user.php";
+
+    //Chức năng trong tài khoản
+    public static ArrayList<ItemTK> getListChucnang() {
+        ArrayList<ItemTK> list = new ArrayList<>();
+        list.add(new ItemTK(R.drawable.ic_tk_donhangcuatoi, "Đơn hàng của tôi"));
+        list.add(new ItemTK(R.drawable.ic_tk_caidat, "Cài đặt"));
+        return list;
+    }
+    //Chức năng trong ứng dụng
+    public static ArrayList<ItemTK> getListCaidat() {
+        ArrayList<ItemTK> list = new ArrayList<>();
+        list.add(new ItemTK(R.drawable.ic_tk_chinhsach, "Chính sách"));
+        list.add(new ItemTK(R.drawable.ic_tk_trogiup, "Trợ giúp"));
+        list.add(new ItemTK(R.drawable.icons8_about_50, "Giới thiệu"));
+        return list;
+    }
 }

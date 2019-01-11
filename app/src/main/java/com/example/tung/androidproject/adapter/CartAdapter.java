@@ -49,7 +49,12 @@ public class CartAdapter extends BaseAdapter {
         public ImageView imgSp;
         public Button btnThemsp, btnBotsp;
         public EditText etSoluongsp;
+
+        public ImageView btnXoa;
+
     }
+
+
 
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
@@ -67,7 +72,7 @@ public class CartAdapter extends BaseAdapter {
             viewHolder.btnBotsp = view.findViewById(R.id.btn_botsp);
             viewHolder.btnThemsp = view.findViewById(R.id.btn_themsp);
             viewHolder.etSoluongsp = view.findViewById(R.id.et_soluongsp);
-
+            viewHolder.btnXoa = view.findViewById(R.id.btn_xoa);
             view.setTag(viewHolder);
         }
         else {
@@ -92,6 +97,7 @@ public class CartAdapter extends BaseAdapter {
         }else if(sl<=1){
             viewHolder.btnThemsp.setVisibility(View.VISIBLE);
             viewHolder.btnBotsp.setVisibility(View.INVISIBLE);
+
         }else if (sl>=1){
             viewHolder.btnThemsp.setVisibility(View.VISIBLE);
             viewHolder.btnBotsp.setVisibility(View.VISIBLE);
@@ -146,6 +152,7 @@ public class CartAdapter extends BaseAdapter {
 
             }
         });
+
         return view ;
     }
 }

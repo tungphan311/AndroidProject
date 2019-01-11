@@ -1,5 +1,7 @@
 package com.example.tung.androidproject.util;
 
+import com.android.volley.toolbox.StringRequest;
+
 import com.example.tung.androidproject.R;
 import com.example.tung.androidproject.model.ItemTK;
 
@@ -46,4 +48,7 @@ public class Constran {
         list.add(new ItemTK(R.drawable.icons8_about_50, "Giới thiệu"));
         return list;
     }
+
+    public static String donhang_URL = "http://" + localhost + "/server/thongtinkh.php";
+    public static String chitietdonhang_URL = "http://" + localhost + "/server/chitietdonhang.php";
 }

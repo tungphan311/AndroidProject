@@ -42,4 +42,16 @@
     <string name="male">Nam</string>
     <string name="female">Nữ</string>
     <string name="namsinh">Năm sinh: </string>
+    <string name="tv_thongtinkh">Thông tin khách hàng</string>
+    <string name="hint_tenkh">Nhập tên khách hàng</string>
+    <string name="hint_sdtkh">Nhập số điện thoại khách hàng</string>
+    <string name="hint_emailkh">Nhập email khách hàng</string>
+    <string name="button_xacnhan">Xác nhận</string>
+    <string name="button_trove">Trở về</string>
+    <string name="tv_chucmung">Chúc mừng bạn đã đặt hàng thành công</string>
+    <string name="tv_lienhe">Cám ơn bạn đã sử dụng dịch vụ của chúng tôi
+    Chúng tôi sẽ liên lạc với bạn sớm nhất để xác nhận đơn đặt hàng</string>
+    <string name="button_trangchu">Trang chính</string>
+    <string name="button_thoat">Thoát</string>
+    <string name="xoa">xoaGiohang</string>
 </resources>

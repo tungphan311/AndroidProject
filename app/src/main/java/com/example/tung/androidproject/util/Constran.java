@@ -1,5 +1,7 @@
 package com.example.tung.androidproject.util;
 
+import com.android.volley.toolbox.StringRequest;
+
 public class Constran {
     public static String connectionErrorMessage = "Vui lòng kiểm tra kết nối Internet";
     public static final int REQUEST_CODE_DANGNHAP = 100;
@@ -9,7 +11,7 @@ public class Constran {
     public static final int RESULT_CODE_ME_DANGNHAP = 152;
     public static final String KEY_ME_DANGNHAP = "me_dangnhap";
 
-    public static String localhost = "10.0.133.201:8080";
+    public static String localhost = "10.0.135.91:8080";
     public static String API_URL = "http://" + localhost + "/server";
     public static String getLoaiSP_URL = "http://" + localhost + "/server/getloaisanpham.php";
     public static String getSPMoiNhat_URL = "http://" + localhost + "/server/getsanphammoinhat.php";
@@ -23,4 +25,6 @@ public class Constran {
     public static String getPhukien_URL = "http://" + localhost + "/server/getphukien.php?page=";
 
     public static String getUser_URL = "http://" + localhost + "/server/getuser.php";
+
+    public static String donhang_URL = "http://" + localhost + "/server/thongtinkh.php";
 }

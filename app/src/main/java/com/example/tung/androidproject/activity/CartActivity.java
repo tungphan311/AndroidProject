@@ -2,6 +2,7 @@ package com.example.tung.androidproject.activity;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toolbar;
 import com.example.tung.androidproject.R;
 import com.example.tung.androidproject.adapter.CartAdapter;
 import com.example.tung.androidproject.fragment.ShoppingFragment;
+import com.example.tung.androidproject.util.CheckConnection;
 
 import java.text.DecimalFormat;
 
@@ -37,6 +39,28 @@ public class CartActivity extends AppCompatActivity {
         CheckData();
         EvenUltil();
         CatchOnItemListView();
+        EvenButton();
+    }
+
+    private void EvenButton() {
+        btnMuatiep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ShoppingFragment.class);
+                startActivity(intent);
+            }
+        });
+        btnThanhtoan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ShoppingFragment.carts.size()>0){
+                    Intent intent = new Intent(getApplicationContext(),ThongtinkhachhangActivity.class);
+                    startActivity(intent);
+                }else{
+                    CheckConnection.ShowToast_Short(getApplicationContext(),"Giỏ hàng của bạn chưa có sản phẩm đề thanh toán");
+                }
+            }
+        });
     }
 
     private void CatchOnItemListView() {

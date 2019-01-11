@@ -26,7 +26,8 @@
         <activity android:name=".activity.TabletActivity" />
         <activity android:name=".activity.PhukienActivity" />
         <activity android:name=".activity.ProducDetailActivity" />
-        <activity android:name=".activity.CartActivity"></activity>
+        <activity android:name=".activity.CartActivity" />
+        <activity android:name=".activity.ThongtinkhachhangActivity"></activity>
     </application>
 
 </manifest>

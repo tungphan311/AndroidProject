@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.activity.LoginActivity;
 import com.example.tung.androidproject.activity.MainScreen;
 import com.example.tung.androidproject.model.User;
 import com.example.tung.androidproject.util.Constran;
@@ -93,12 +94,15 @@ public class SignInFragment extends Fragment  {
                     for (int i=0; i<listUsers.size(); i++) {
                         if (listUsers.get(i).getSodienthoai().equals(phone) && listUsers.get(i).getMatkhau().equals(pass)) {
                              MainScreen.isDangNhap = true;
+                             MainScreen.user = listUsers.get(i);
                              continue;
                         }
                     }
 
                     if (MainScreen.isDangNhap) {
                         Toast.makeText(getActivity(), "Login successed", Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
+                        getActivity().overridePendingTransition(R.anim.leftin, R.anim.rightout);
                     }
                     else {
                         Toast.makeText(getActivity(), "Login failed. Wrong phone or password", Toast.LENGTH_SHORT).show();

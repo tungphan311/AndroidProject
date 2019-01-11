@@ -103,7 +103,7 @@ public class ShoppingFragment extends Fragment {
 
         Anhxa(view);
 
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
 
         if (CheckConnection.haveNetworkConnection(getActivity().getApplicationContext())) {
             createMenuBar();
@@ -124,21 +124,21 @@ public class ShoppingFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.cart, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.cart, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_cart:
-                Intent intent = new Intent(getActivity().getApplicationContext(), CartActivity.class);
-                startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menu_cart:
+//                Intent intent = new Intent(getActivity().getApplicationContext(), CartActivity.class);
+//                startActivity(intent);
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     private void Anhxa(View view) {
         viewFlipper = view.findViewById(R.id.viewflipper);

@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">AndroidProject</string>
-    <string name="title_shopping">Shopping</string>
-    <string name="title_user">Me</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_more">More</string>
+    <string name="title_shopping">Trang chủ</string>
+    <string name="title_user">Danh mục</string>
+    <string name="title_notifications">Giỏ hàng</string>
+    <string name="title_more">Thêm</string>
     <string name="user_login">  Số điện thoại</string>
     <string name="user_password"> Mật khẩu</string>
     <string name="btn_dangnhap"> Đăng nhập</string>

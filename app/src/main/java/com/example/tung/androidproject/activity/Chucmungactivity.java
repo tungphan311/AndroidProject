@@ -11,21 +11,13 @@ import android.widget.Button;
 import com.example.tung.androidproject.R;
 
 public class Chucmungactivity extends AppCompatActivity {
-    Button btnTrangchinh, btnThoat;
+    Button btnTrangchinh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dathang);
         Anhxa();
-        btnThoat.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                moveTaskToBack(true);
-                android.os.Process.killProcess(android.os.Process.myPid());
-                System.exit(1);
-            }
-        });
         btnTrangchinh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +29,6 @@ public class Chucmungactivity extends AppCompatActivity {
 
     private void Anhxa() {
         btnTrangchinh = findViewById(R.id.buttontrangchu);
-        btnThoat = findViewById(R.id.buttonthoat);
+
     }
 }

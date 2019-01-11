@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -28,6 +31,8 @@ public class CartActivity extends AppCompatActivity {
     Button btnThanhtoan, btnMuatiep;
     android.support.v7.widget.Toolbar toolbarCart;
     CartAdapter cartAdapter;
+    Button botsp;
+    EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class CartActivity extends AppCompatActivity {
         CatchOnItemListView();
         EvenButton();
     }
+
 
     private void EvenButton() {
         btnMuatiep.setOnClickListener(new View.OnClickListener() {
@@ -67,16 +73,28 @@ public class CartActivity extends AppCompatActivity {
         listViewCart.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                Xacnhanxoa(position);
+                return true;
+            }
+        });
+    }
+
+    public void myClickHandler (View view) {
+        FrameLayout parent = (FrameLayout) view.getParent();
+        TextView child = (TextView)parent.getChildAt(0);
+        for (int i=0 ; i<ShoppingFragment.carts.size(); i++) {
+            if (ShoppingFragment.carts.get(i).getTensp().equals(child.getText())) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
                 builder.setTitle("Xác nhận xóa sản phẩm");
                 builder.setMessage("Bạn có chắc xóa sản phẩm này");
+                final int finalI = i;
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int i) {
+                    public void onClick(DialogInterface dialog, int k) {
                         if (ShoppingFragment.carts.size()<=0){
                             tvThongbao.setVisibility(View.VISIBLE);
                         }else {
-                            ShoppingFragment.carts.remove(position);
+                            ShoppingFragment.carts.remove(finalI);
                             cartAdapter.notifyDataSetChanged();
                             EvenUltil();
                             if (ShoppingFragment.carts.size()<=0){
@@ -97,9 +115,41 @@ public class CartActivity extends AppCompatActivity {
                     }
                 });
                 builder.show();
-                return true;
+            }
+        }
+    }
+
+    private void Xacnhanxoa(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+        builder.setTitle("Xác nhận xóa sản phẩm");
+        builder.setMessage("Bạn có chắc xóa sản phẩm này");
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                if (ShoppingFragment.carts.size()<=0){
+                    tvThongbao.setVisibility(View.VISIBLE);
+                }else {
+                    ShoppingFragment.carts.remove(position);
+                    cartAdapter.notifyDataSetChanged();
+                    EvenUltil();
+                    if (ShoppingFragment.carts.size()<=0){
+                        tvThongbao.setVisibility(View.VISIBLE);
+                    }else {
+                        tvThongbao.setVisibility(View.INVISIBLE);
+                        cartAdapter.notifyDataSetChanged();
+                        EvenUltil();
+                    }
+                }
             }
         });
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                cartAdapter.notifyDataSetChanged();
+                EvenUltil();
+            }
+        });
+        builder.show();
     }
 
     @SuppressLint("SetTextI18n")

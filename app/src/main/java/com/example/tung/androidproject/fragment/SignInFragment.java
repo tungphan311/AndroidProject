@@ -1,26 +1,22 @@
 package com.example.tung.androidproject.fragment;
 
 
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tung.androidproject.R;
-import com.example.tung.androidproject.activity.LoginActivity;
 import com.example.tung.androidproject.activity.MainScreen;
 import com.example.tung.androidproject.model.User;
 import com.example.tung.androidproject.util.Constran;
@@ -29,9 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -79,40 +73,44 @@ public class SignInFragment extends Fragment {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone = etPhone.getText().toString().trim();     // remove space
-                String pass = etPassword.getText().toString().trim();
-
-                if (phone.length() == 0) {
-                    Toast.makeText(getActivity(), "Vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show();
-                    etPhone.requestFocus();
-                }
-                else if (pass.length() == 0) {
-                    Toast.makeText(getActivity(), "Vui lòng nhập mật khẩu", Toast.LENGTH_SHORT).show();
-                    etPassword.requestFocus();
-                }
-                else {
-                    for (int i=0; i<listUsers.size(); i++) {
-                        if (listUsers.get(i).getSodienthoai().equals(phone) && listUsers.get(i).getMatkhau().equals(pass)) {
-                             MainScreen.isDangNhap = true;
-                             MainScreen.user = listUsers.get(i);
-                             continue;
-                        }
-                    }
-
-                    if (MainScreen.isDangNhap) {
-                        Toast.makeText(getActivity(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                        getActivity().finish();
-                        getActivity().overridePendingTransition(R.anim.leftin, R.anim.rightout);
-                        Intent intent = new Intent(getActivity().getApplicationContext(), MainScreen.class);
-                        startActivity(intent);
-                    }
-                    else {
-                        Toast.makeText(getActivity(), "Sai số điện thoại hoặc mật khẩu.\n" +
-                                "Vui lòng nhập lại", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                xulyDangNhap();
             }
         });
+    }
+
+    private void xulyDangNhap() {
+        String phone = etPhone.getText().toString().trim();     // remove space
+        String pass = etPassword.getText().toString().trim();
+
+        if (phone.length() == 0) {
+            Toast.makeText(getActivity(), "Vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show();
+            etPhone.requestFocus();
+        }
+        else if (pass.length() == 0) {
+            Toast.makeText(getActivity(), "Vui lòng nhập mật khẩu", Toast.LENGTH_SHORT).show();
+            etPassword.requestFocus();
+        }
+        else {
+            for (int i=0; i<listUsers.size(); i++) {
+                if (listUsers.get(i).getSodienthoai().equals(phone) && listUsers.get(i).getMatkhau().equals(pass)) {
+                    MainScreen.isDangNhap = true;
+                    MainScreen.user = listUsers.get(i);
+                    continue;
+                }
+            }
+
+            if (MainScreen.isDangNhap) {
+                Toast.makeText(getActivity(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                getActivity().finish();
+                getActivity().overridePendingTransition(R.anim.leftin, R.anim.rightout);
+                Intent intent = new Intent(getActivity().getApplicationContext(), MainScreen.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getActivity(), "Sai số điện thoại hoặc mật khẩu.\n" +
+                        "Vui lòng nhập lại", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void getListUser() {

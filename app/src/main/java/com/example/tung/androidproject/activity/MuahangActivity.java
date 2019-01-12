@@ -1,11 +1,10 @@
 package com.example.tung.androidproject.activity;
 
-import android.support.design.widget.TabLayout;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -14,11 +13,24 @@ import com.example.tung.androidproject.fragment.DiachiFragment;
 
 public class MuahangActivity extends AppCompatActivity {
     ImageView btnBack;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
 
     public Fragment fragment;
     public FragmentTransaction transaction;
+
+    String tongtien;
+    String tennguoinhan;
+
+    public String getTongtien() {
+        return tongtien;
+    }
+
+    public String getTennguoinhan() {
+        return tennguoinhan;
+    }
+
+    public void setTennguoinhan(String tennguoinhan) {
+        this.tennguoinhan = tennguoinhan;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +55,8 @@ public class MuahangActivity extends AppCompatActivity {
     }
 
     private void initData() {
-
+        Intent intent = getIntent();
+        tongtien = intent.getStringExtra("tongtien");
     }
 
     private void initView() {

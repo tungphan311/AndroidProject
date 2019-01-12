@@ -51,8 +51,8 @@ public class CartActivity extends AppCompatActivity {
         btnMuatiep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MainScreen.class);
-                startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(),MainScreen.class);
+            startActivity(intent);
             }
         });
         btnThanhtoan.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +61,7 @@ public class CartActivity extends AppCompatActivity {
                 if(ShoppingFragment.carts.size()>0){
                     if (MainScreen.isDangNhap) {
                         Intent intent = new Intent(getApplicationContext(), MuahangActivity.class);
+                        intent.putExtra("tongtien", tvTongtien.getText().toString());
                         startActivity(intent);
                     }
                     else {

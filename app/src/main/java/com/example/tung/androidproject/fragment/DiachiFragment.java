@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tung.androidproject.R;
 import com.example.tung.androidproject.activity.MainScreen;
+import com.example.tung.androidproject.activity.MuahangActivity;
 import com.example.tung.androidproject.activity.ThemdiachiActivity;
 import com.example.tung.androidproject.adapter.DiachiAdapter;
 import com.example.tung.androidproject.model.Diachi;
@@ -121,6 +122,8 @@ public class DiachiFragment extends Fragment {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((MuahangActivity)getActivity()).setTennguoinhan("Tung");
+
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.framelayout, fragment);
                 getActivity().overridePendingTransition(R.anim.leftin, R.anim.rightout);
@@ -148,5 +151,4 @@ public class DiachiFragment extends Fragment {
         listview_diachi = view.findViewById(R.id.listview_diachi);
         listview_diachi.setAdapter(adapter);
     }
-
 }

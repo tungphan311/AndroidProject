@@ -1,13 +1,15 @@
 package com.example.tung.androidproject.fragment;
 
 
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +37,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SignInFragment extends Fragment  {
+public class SignInFragment extends Fragment {
 
     private TextView btnDangNhap, tvQuenMatKhau;
     private EditText etPhone, etPassword;
@@ -80,8 +82,6 @@ public class SignInFragment extends Fragment  {
                 String phone = etPhone.getText().toString().trim();     // remove space
                 String pass = etPassword.getText().toString().trim();
 
-                Toast.makeText(getActivity(), String.valueOf(listUsers.size()), Toast.LENGTH_SHORT).show();
-
                 if (phone.length() == 0) {
                     Toast.makeText(getActivity(), "Vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show();
                     etPhone.requestFocus();
@@ -100,12 +100,15 @@ public class SignInFragment extends Fragment  {
                     }
 
                     if (MainScreen.isDangNhap) {
-                        Toast.makeText(getActivity(), "Login successed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         getActivity().finish();
                         getActivity().overridePendingTransition(R.anim.leftin, R.anim.rightout);
+                        Intent intent = new Intent(getActivity().getApplicationContext(), MainScreen.class);
+                        startActivity(intent);
                     }
                     else {
-                        Toast.makeText(getActivity(), "Login failed. Wrong phone or password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Sai số điện thoại hoặc mật khẩu.\n" +
+                                "Vui lòng nhập lại", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -121,6 +124,11 @@ public class SignInFragment extends Fragment  {
                     int mauser = 0;
                     String sodt = "";
                     String pass = "";
+                    String hoten = "";
+                    String gioitinh = "";
+                    int namsinh = 0;
+                    String diachi = "";
+                    String email = "";
 
                     for (int i= 0; i<response.length(); i++) {
                         try {
@@ -129,8 +137,13 @@ public class SignInFragment extends Fragment  {
                             mauser = jsonObject.getInt("mauser");
                             sodt = jsonObject.getString("sodienthoai");
                             pass = jsonObject.getString("matkhau");
+                            hoten = jsonObject.getString("hoten");
+                            gioitinh = jsonObject.getString("gioitinh");
+                            namsinh = jsonObject.getInt("namsinh");
+                            diachi = jsonObject.getString("diachi");
+                            email = jsonObject.getString("email");
 
-                            listUsers.add(new User(mauser, sodt, pass));
+                            listUsers.add(new User(mauser, sodt, pass, hoten, gioitinh, namsinh, diachi, email));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

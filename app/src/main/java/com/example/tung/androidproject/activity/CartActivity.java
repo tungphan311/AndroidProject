@@ -3,18 +3,16 @@ package com.example.tung.androidproject.activity;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.example.tung.androidproject.R;
 import com.example.tung.androidproject.adapter.CartAdapter;
@@ -60,8 +58,14 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(ShoppingFragment.carts.size()>0){
-                    Intent intent = new Intent(getApplicationContext(),ThongtinkhachhangActivity.class);
-                    startActivity(intent);
+                    //if (MainScreen.isDangNhap) {
+                        //Intent intent = new Intent(getApplicationContext(),ThongtinkhachhangActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), MuahangActivity.class);
+                        startActivity(intent);
+//                    }
+//                    else {
+//                        Toast.makeText(CartActivity.this, "Vui lòng đăng nhập trước khi thanh toán!", Toast.LENGTH_LONG).show();
+                    //}
                 }else{
                     CheckConnection.ShowToast_Short(getApplicationContext(),"Giỏ hàng của bạn chưa có sản phẩm đề thanh toán");
                 }
@@ -80,7 +84,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void myClickHandler (View view) {
-        FrameLayout parent = (FrameLayout) view.getParent();
+        LinearLayout parent = (LinearLayout) view.getParent();
         TextView child = (TextView)parent.getChildAt(0);
         for (int i=0 ; i<ShoppingFragment.carts.size(); i++) {
             if (ShoppingFragment.carts.get(i).getTensp().equals(child.getText())) {

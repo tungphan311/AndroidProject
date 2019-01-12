@@ -28,7 +28,9 @@
         <activity android:name=".activity.ProducDetailActivity" />
         <activity android:name=".activity.CartActivity" />
         <activity android:name=".activity.ThongtinkhachhangActivity" />
-        <activity android:name=".activity.Chucmungactivity"></activity>
+        <activity android:name=".activity.Chucmungactivity" />
+        <activity android:name=".activity.HelpActivity" />
+        <activity android:name=".activity.MuahangActivity"></activity>
     </application>
 
 </manifest>

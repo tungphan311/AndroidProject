@@ -1,8 +1,8 @@
 package com.example.tung.androidproject.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +24,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +36,8 @@ public class ThongtinkhachhangActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thongtinkhachhang);
         Anhxa();
+        getDetail();
+
         btntrove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +49,12 @@ public class ThongtinkhachhangActivity extends AppCompatActivity {
         }else {
             CheckConnection.ShowToast_Short(getApplicationContext(),"Bạn hãy kiểm tra lại kết nối");
         }
+    }
+
+    private void getDetail() {
+        edttenkhachhang.setText(MainScreen.user.getHoten());
+        edtsdt.setText(MainScreen.user.getSodienthoai());
+        edtemail.setText(MainScreen.user.getEmail());
     }
 
     private void EventButton() {

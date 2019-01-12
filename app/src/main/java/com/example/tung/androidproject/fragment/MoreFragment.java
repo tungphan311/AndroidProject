@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.tung.androidproject.R;
+import com.example.tung.androidproject.activity.HelpActivity;
 import com.example.tung.androidproject.activity.LoginActivity;
 import com.example.tung.androidproject.activity.MainScreen;
 import com.example.tung.androidproject.adapter.MoreAdapter;
@@ -122,18 +123,8 @@ public class MoreFragment extends Fragment {
     }
 
     private void showTrogiup() {
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.setTitle("Trung tâm trợ giúp");
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_help);
-        TextView btnQuit = dialog.findViewById(R.id.btn_quit);
-        btnQuit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+        Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+        startActivity(intent);
     }
 
     private void showGioiThieu() {

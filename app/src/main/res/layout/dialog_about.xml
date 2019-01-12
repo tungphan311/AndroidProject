@@ -11,7 +11,7 @@
         android:layout_height="40dp" 
         android:src="@drawable/icons8_about_50"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="10dp"/>
     
     <TextView
         android:layout_width="wrap_content"
@@ -70,9 +70,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="26sp"
-        android:layout_marginRight="16sp"
-        android:text="Ngày ra mắt: 13/ 01/ 2019"
+        android:gravity="center"
+        android:text="Ngày ra mắt: "
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="13/ 01/ 2019"
         android:textSize="16sp"/>
 
     <TextView
@@ -81,7 +87,7 @@
         android:layout_marginTop="16sp"
         android:layout_marginLeft="6sp"
         android:layout_marginRight="16sp"
-        android:text="Nhóm phát triển sản phẩm: "
+        android:text="Nhóm phát triển: "
         android:textStyle="bold"
         android:gravity="left"
         android:textSize="16sp"/>

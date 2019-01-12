@@ -1,8 +1,8 @@
 package com.example.tung.androidproject.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,8 +24,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ThongtinkhachhangActivity extends AppCompatActivity {
     EditText edttenkhachhang, edtsdt, edtemail;
@@ -57,6 +60,61 @@ public class ThongtinkhachhangActivity extends AppCompatActivity {
         edtemail.setText(MainScreen.user.getEmail());
     }
 
+    public int checkdauso(String dauso){
+        int count =0;
+        if (dauso.equals("032")||dauso.equals("033")||dauso.equals("034")||dauso.equals("035")||dauso.equals("036")||dauso.equals("037")||dauso.equals("038")||dauso.equals("039")||
+                dauso.equals("056")||dauso.equals("057")||dauso.equals("058")||
+                dauso.equals("70")||dauso.equals("076")||dauso.equals("077")||dauso.equals("077")||dauso.equals("078")||dauso.equals("079")||
+                dauso.equals("081")||dauso.equals("082")||dauso.equals("083")||dauso.equals("084")||dauso.equals("085")||dauso.equals("086")||
+                dauso.equals("088")||dauso.equals("089")||dauso.equals("091")||dauso.equals("090")||dauso.equals("092")||dauso.equals("093")||dauso.equals("094")||
+                dauso.equals("096")||dauso.equals("097")||dauso.equals("098")){
+            count=1;
+        }
+        return count;
+    }
+    public int checksdt(String sdt){
+        int count = 0;
+
+        if (sdt.length()==10){
+            if (checkdauso(sdt.substring(0,3))==1){
+                count =1;
+            }
+        }
+        return count;
+    }
+    public int checkthongtin(){
+        String ten = edttenkhachhang.getText().toString();
+        String sdt = edtsdt.getText().toString();
+        String email = edtemail.getText().toString();
+        String emailPattern = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        int count_sdt =0;
+        int count_email = 0;
+        int count_phu =0;
+        int count_tong =0;
+        String dauso ="";
+        Pattern regex_email = Pattern.compile(emailPattern);
+        Matcher matcher_email = regex_email.matcher(email);
+        if (ten.length()>0 && sdt.length()>0 &&email.length()>0 ){
+            if(checksdt(sdt)==1){
+                count_sdt =1;
+                if (matcher_email.find()) {
+                   count_email=1;
+                } else {
+                    CheckConnection.ShowToast_Short(getApplicationContext(),"Email của bạn không hợp lệ");
+                    count_email =0;
+                }
+            }else {
+                CheckConnection.ShowToast_Short(getApplicationContext(),"Số điện thoại của bạn không đúng");
+            }
+            count_phu=1;
+        }else {
+
+            CheckConnection.ShowToast_Short(getApplicationContext(),"Bạn cần nhập đủ các thông tin !");
+        }
+        count_tong = count_email*count_phu*count_sdt;
+        return count_tong;
+    }
+
     private void EventButton() {
         btnxacnhan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +122,7 @@ public class ThongtinkhachhangActivity extends AppCompatActivity {
                 final String ten = edttenkhachhang.getText().toString().trim();
                 final String sdt = edtsdt.getText().toString().trim();
                 final String email = edtemail.getText().toString().trim();
-                if(ten.length()>0 && sdt.length() >0 && email.length()>0){
+                if(checkthongtin()==1){
                     final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, Constran.donhang_URL, new Response.Listener<String>() {
                         @Override

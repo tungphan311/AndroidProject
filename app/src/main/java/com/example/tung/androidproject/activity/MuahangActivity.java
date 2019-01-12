@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.tung.androidproject.R;
@@ -27,6 +28,18 @@ public class MuahangActivity extends AppCompatActivity {
         initView();
 
         initData();
+
+        initEvent();
+    }
+
+    private void initEvent() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.leftin, R.anim.rightout);
+            }
+        });
     }
 
     private void initData() {

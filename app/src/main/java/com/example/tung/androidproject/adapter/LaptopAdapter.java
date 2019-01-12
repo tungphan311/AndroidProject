@@ -78,15 +78,7 @@ public class LaptopAdapter extends BaseAdapter {
         Picasso.with(context).load(product.getHinhanhsp()).placeholder(R.drawable.ic_not_available)
                 .error(R.drawable.ic_error)
                 .into(viewHolder.imgLaptop);
-//        viewHolder.linearLayoutPhone.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(context,PhoneActivity.class);
-//                intent.putExtra("masanphham", product.masp);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                context.startActivity(intent);
-//            }
-//        });
+
         return view;
     }
 }

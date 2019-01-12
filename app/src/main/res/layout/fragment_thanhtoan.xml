@@ -137,6 +137,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_dukien"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -206,7 +207,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#f7f2f2">
+        android:background="#efeeee">
 
         <RadioButton
             android:id="@+id/rd_napas"
@@ -247,7 +248,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#f7f2f2">
+        android:background="#efeeee">
 
         <RadioButton
             android:id="@+id/rd_visa"

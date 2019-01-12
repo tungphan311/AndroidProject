@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tung.androidproject.R;
 import com.example.tung.androidproject.adapter.CartAdapter;
@@ -58,14 +59,13 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(ShoppingFragment.carts.size()>0){
-                    //if (MainScreen.isDangNhap) {
-                        //Intent intent = new Intent(getApplicationContext(),ThongtinkhachhangActivity.class);
+                    if (MainScreen.isDangNhap) {
                         Intent intent = new Intent(getApplicationContext(), MuahangActivity.class);
                         startActivity(intent);
-//                    }
-//                    else {
-//                        Toast.makeText(CartActivity.this, "Vui lòng đăng nhập trước khi thanh toán!", Toast.LENGTH_LONG).show();
-                    //}
+                    }
+                    else {
+                        Toast.makeText(CartActivity.this, "Vui lòng đăng nhập trước khi thanh toán!", Toast.LENGTH_LONG).show();
+                    }
                 }else{
                     CheckConnection.ShowToast_Short(getApplicationContext(),"Giỏ hàng của bạn chưa có sản phẩm đề thanh toán");
                 }

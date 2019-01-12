@@ -9,8 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.example.tung.androidproject.R;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +22,10 @@ import com.example.tung.androidproject.R;
 public class ThanhtoanFragment extends Fragment {
     Button btnTieptuc, btnQuaylai;
     Fragment fragment;
+    TextView tvDukien;
+    RadioButton rbNapas, rbVisa, rbCod, rbHinhthuc;
+
+    int today, month, year;
 
     public ThanhtoanFragment() {
         // Required empty public constructor
@@ -34,7 +42,21 @@ public class ThanhtoanFragment extends Fragment {
 
         initEvent();
 
+        calculateDay();
+
+        initData();
+
         return view;
+    }
+
+    private void initData() {
+        String text = tvDukien.getText() +  " " + String.valueOf(today) + "/" + String.valueOf(month) + "/" + String.valueOf(year) + ")";
+        tvDukien.setText(text);
+
+        rbNapas.setEnabled(false);
+        rbVisa.setEnabled(false);
+        rbCod.setChecked(true);
+        rbHinhthuc.setChecked(true);
     }
 
     private void initEvent() {
@@ -61,8 +83,67 @@ public class ThanhtoanFragment extends Fragment {
     private void initView(View view) {
         btnQuaylai = view.findViewById(R.id.btn_quaylai);
         btnTieptuc = view.findViewById(R.id.btn_tieptuc);
+        tvDukien = view.findViewById(R.id.tv_dukien);
+        rbNapas = view.findViewById(R.id.rd_napas);
+        rbVisa = view.findViewById(R.id.rd_visa);
+        rbCod = view.findViewById(R.id.rd_cod);
+        rbHinhthuc = view.findViewById(R.id.rd_hinhthuc);
 
         fragment = new XacnhanFragment();
+    }
+
+    private void calculateDay() {
+        Calendar cal = Calendar.getInstance();
+        today = cal.get(Calendar.DAY_OF_MONTH);
+        month = cal.get(Calendar.MONTH) + 1;
+        year = cal.get(Calendar.YEAR);
+
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+                if (today <= 24)
+                    today += 7;
+                else {
+                    today = today + 7 - 31;
+                    month += 1;
+                }
+                break;
+
+            case 2:
+                if (today <= 21)
+                    today += 7;
+                else {
+                    today = today + 7 - 28;
+                    month += 1;
+                }
+                break;
+
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                if (today <= 23)
+                    today += 7;
+                else {
+                    today = today + 7 - 30;
+                    month += 1;
+                }
+                break;
+
+            case 12:
+                if (today <= 24)
+                    today += 7;
+                else {
+                    today = today + 7 - 31;
+                    month = 1;
+                    year += 1;
+                }
+                break;
+        }
     }
 
 }

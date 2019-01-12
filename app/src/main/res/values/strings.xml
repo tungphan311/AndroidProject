@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidProject</string>
+    <string name="app_name">eShopping</string>
     <string name="title_shopping">Trang chủ</string>
     <string name="title_user">Danh mục</string>
     <string name="title_notifications">Giỏ hàng</string>
@@ -65,4 +65,6 @@
     <string name="napas">Thẻ ATM nội địa/Internet Banking</string>
     <string name="visa">Thanh toán bằng thẻ quốc tế Visa, Mastercard, JSB</string>
     <string name="quaylai">Quay lại</string>
+    <string name="hotennguoinhan">Họ tên đầy đủ người nhận</string>
+    <string name="diachicuthe">Số nhà, đường, phường, xã, ...</string>
 </resources>

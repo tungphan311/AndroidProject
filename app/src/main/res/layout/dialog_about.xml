@@ -103,7 +103,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="26dp"
         android:layout_marginRight="16sp"
-        android:text="2.  Lê Việt Hoàng           MSSV: 16521399"
+        android:text="2.  Lê Việt Hoàng           MSSV: 16520434"
         android:gravity="left"
         android:textStyle="italic"
         android:textSize="16sp"/>
@@ -124,6 +124,6 @@
         android:id="@+id/btn_done"
         android:layout_marginTop="16dp"
         style="@style/btn"
-        android:text="OK" />
+        android:text="OK"/>
 
 </LinearLayout>

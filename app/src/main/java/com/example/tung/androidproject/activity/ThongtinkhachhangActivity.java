@@ -39,6 +39,8 @@ public class ThongtinkhachhangActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thongtinkhachhang);
         Anhxa();
+        getDetail();
+
         btntrove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +52,12 @@ public class ThongtinkhachhangActivity extends AppCompatActivity {
         }else {
             CheckConnection.ShowToast_Short(getApplicationContext(),"Bạn hãy kiểm tra lại kết nối");
         }
+    }
+
+    private void getDetail() {
+        edttenkhachhang.setText(MainScreen.user.getHoten());
+        edtsdt.setText(MainScreen.user.getSodienthoai());
+        edtemail.setText(MainScreen.user.getEmail());
     }
 
     public int checkdauso(String dauso){
@@ -184,7 +192,7 @@ public class ThongtinkhachhangActivity extends AppCompatActivity {
                     };
                     requestQueue.add(stringRequest);
                 }else {
-
+                    CheckConnection.ShowToast_Short(getApplicationContext(),"Hãy nhập đủ thông tin");
                 }
             }
         });

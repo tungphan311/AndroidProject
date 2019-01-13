@@ -49,4 +49,9 @@
         <item name="android:gravity">center</item>
         <item name="android:padding">10dp</item>
     </style>
+
+    <declare-styleable name="CircleImage">
+        <attr name="border_color" format="color"/>
+        <attr name="src" format="integer"/>
+    </declare-styleable>
 </resources>

@@ -20,7 +20,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tung.androidproject.R;
@@ -133,7 +132,6 @@ public class SignUpFragment extends Fragment  {
         if (etHoTen.getText().toString().trim().isEmpty()) {
             Toast.makeText(getActivity(), "Họ và tên không được bỏ trống!", Toast.LENGTH_SHORT).show();
             etHoTen.requestFocus();
-            btnDangKy.setEnabled(false);
         }
         else if (sodt.isEmpty()) {
             Toast.makeText(getActivity(), "Số điện thoại không được bỏ trống!", Toast.LENGTH_SHORT).show();

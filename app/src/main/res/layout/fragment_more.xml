@@ -17,7 +17,7 @@
                 android:id="@+id/fl_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="@drawable/beautiful_french_words">
+                android:background="@drawable/background">
 
                 <LinearLayout
                     android:id="@+id/ll_user"
@@ -40,7 +40,7 @@
                         android:id="@+id/tv_tenuser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#000"
+                        android:textColor="@color/color_whiteText"
                         android:layout_gravity="bottom"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="10dp"

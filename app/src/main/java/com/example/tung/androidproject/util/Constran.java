@@ -1,12 +1,9 @@
 package com.example.tung.androidproject.util;
 
-import com.android.volley.toolbox.StringRequest;
-
 import com.example.tung.androidproject.R;
 import com.example.tung.androidproject.model.ItemTK;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Constran {
     public static String connectionErrorMessage = "Vui lòng kiểm tra kết nối Internet";
@@ -32,6 +29,8 @@ public class Constran {
 
     public static String getUser_URL = "http://" + localhost + "/server/getuser.php";
     public static String insertUser_URL = "http://" + localhost + "/server/insert_user.php";
+    public static String insertDiachi_URL = "http://" + localhost + "/server/insert_diachi.php";
+    public static String getDiachi_URL = "http://" + localhost + "/server/getdiachi.php";
 
     //Chức năng trong tài khoản
     public static ArrayList<ItemTK> getListChucnang() {

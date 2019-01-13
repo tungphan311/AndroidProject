@@ -54,8 +54,6 @@ public class CartAdapter extends BaseAdapter {
 
     }
 
-
-
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
         CartAdapter.ViewHolder viewHolder = null;

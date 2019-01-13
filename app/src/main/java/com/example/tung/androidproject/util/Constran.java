@@ -8,13 +8,13 @@ import java.util.ArrayList;
 public class Constran {
     public static String connectionErrorMessage = "Vui lòng kiểm tra kết nối Internet";
 
-    public static String localhost = "10.0.133.201:8080";
+    public static String localhost = "10.0.135.91:8080";
     public static String API_URL = "http://" + localhost + "/server";
     public static String getLoaiSP_URL = "http://" + localhost + "/server/getloaisanpham.php";
     public static String getSPMoiNhat_URL = "http://" + localhost + "/server/getsanphammoinhat.php";
-    public static String timkiem_URL = "http://"+ localhost + "/server/timkiemsp.php?key=";
+    public static String timkiem_URL = "http://" + localhost + "/server/timkiemsp.php?key=";
 
-    public static String search_URL = "http://"+ localhost + "/server/search.php?key=";
+    public static String search_URL = "http://" + localhost + "/server/search.php?key=";
 
     public static String getPhone_URL = "http://" + localhost + "/server/getphone.php?page=";
     public static String getLaptop_URL = "http://" + localhost + "/server/getlaptop.php?page=";
@@ -35,6 +35,7 @@ public class Constran {
         list.add(new ItemTK(R.drawable.ic_tk_caidat, "Cài đặt"));
         return list;
     }
+
     //Chức năng trong ứng dụng
     public static ArrayList<ItemTK> getListCaidat() {
         ArrayList<ItemTK> list = new ArrayList<>();
@@ -44,8 +45,9 @@ public class Constran {
         return list;
     }
 
-    public static String donhang_URL = "http://" + localhost + "/server/thongtinkh.php";
+    public static String donhang_URL = "http://" + localhost + "/server/insert_donhang.php";
     public static String chitietdonhang_URL = "http://" + localhost + "/server/chitietdonhang.php";
     public static String updatepassword_URL = "http://" + localhost + "/server/updatepassword.php";
     public static String updateinfo_URL = "http://" + localhost + "/server/updateinfo.php";
+    public static String getmycart_URL = "http://" + localhost + "/server/getmycart.php?mauser=";
 }

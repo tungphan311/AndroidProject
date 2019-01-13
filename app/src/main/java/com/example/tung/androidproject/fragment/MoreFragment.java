@@ -22,6 +22,7 @@ import com.example.tung.androidproject.R;
 import com.example.tung.androidproject.activity.HelpActivity;
 import com.example.tung.androidproject.activity.LoginActivity;
 import com.example.tung.androidproject.activity.MainScreen;
+import com.example.tung.androidproject.activity.MycartActivity;
 import com.example.tung.androidproject.activity.SettingActivity;
 import com.example.tung.androidproject.adapter.MoreAdapter;
 import com.example.tung.androidproject.util.Constran;
@@ -113,6 +114,8 @@ public class MoreFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
+                        Intent intent = new Intent(getActivity().getApplicationContext(), MycartActivity.class);
+                        startActivity(intent);
                         break;
 
                     case 1:

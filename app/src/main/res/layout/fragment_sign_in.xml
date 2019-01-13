@@ -40,10 +40,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/til_phone"
             android:layout_marginTop="10dp">
-            <CheckBox
-                android:id="@+id/cb_remember"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
             <EditText
                 android:id="@+id/et_password"
@@ -53,6 +49,14 @@
                 android:inputType="textPassword"
                 android:textSize="16sp" />
         </android.support.design.widget.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/cb_remember"
+            android:layout_below="@+id/til_password"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lưu thông tin đăng nhập"/>
 
         <TextView
             android:id="@+id/tv_quenmatkhau"

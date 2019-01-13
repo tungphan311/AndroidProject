@@ -12,14 +12,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.tung.androidproject.fragment.MeFragment;
 import com.example.tung.androidproject.fragment.MoreFragment;
 import com.example.tung.androidproject.fragment.NotificationFragment;
 import com.example.tung.androidproject.R;
 import com.example.tung.androidproject.fragment.ShoppingFragment;
+import com.example.tung.androidproject.model.Sanpham;
 import com.example.tung.androidproject.model.User;
+import com.example.tung.androidproject.util.Constran;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.http.POST;
 
 public class MainScreen extends AppCompatActivity {
 
@@ -32,7 +53,8 @@ public class MainScreen extends AppCompatActivity {
     Fragment fragment;
 
     public boolean close = false;
-
+    public SharedPreferences pre;
+    ArrayList<User> listUsers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +66,88 @@ public class MainScreen extends AppCompatActivity {
 
         // load app default
         loadFragment(new ShoppingFragment());
+    }
+
+    private void findUser(final int id) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constran.finduserbyid_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                int iduser = 0;
+                String sodt = "";
+                String pass = "";
+                String hoten = "";
+                String gioitinh = "";
+                int namsinh = 0;
+                String diachi = "";
+                String email = "";
+
+                if (response !=null && response.length() != 2){
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+
+                        for (int i=0;i<response.length();i++){
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            iduser = jsonObject.getInt("mauser");
+                            sodt = jsonObject.getString("sodienthoai");
+                            pass = jsonObject.getString("matkhau");
+                            hoten = jsonObject.getString("hoten");
+                            gioitinh = jsonObject.getString("gioitinh");
+                            namsinh = jsonObject.getInt("namsinh");
+                            diachi = jsonObject.getString("diachi");
+                            email = jsonObject.getString("email");
+
+                            user = new User(iduser, sodt, pass, hoten, gioitinh, namsinh, diachi, email);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    user = null;
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> param = new HashMap<String, String>();
+                param.put("mauser",String.valueOf(id));
+                return param;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    private void loadState() {
+        SharedPreferences preferences = getSharedPreferences("my_state", MODE_PRIVATE);
+
+        boolean check = preferences.getBoolean("dangnhap", false);
+
+        if (check) {
+            int mauser = preferences.getInt("mauser", 0);
+            isDangNhap = true;
+
+            findUser(mauser);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        loadState();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        saveState();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -116,4 +220,17 @@ public class MainScreen extends AppCompatActivity {
         return 0;
     }
 
+    public void saveState() {
+        pre = getSharedPreferences("my_state", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pre.edit();
+
+        editor.clear();
+
+        if (isDangNhap) {
+            editor.putBoolean("dangnhap", isDangNhap);
+            editor.putInt("mauser", user.getMauser());
+        }
+
+        editor.commit();
+    }
 }

@@ -7,12 +7,6 @@ import java.util.ArrayList;
 
 public class Constran {
     public static String connectionErrorMessage = "Vui lòng kiểm tra kết nối Internet";
-    public static final int REQUEST_CODE_DANGNHAP = 100;
-    public static final int RESULT_CODE_DANGNHAP = 99;
-
-    public static final int REQUEST_CODE_ME_DANGNHAP = 151;
-    public static final int RESULT_CODE_ME_DANGNHAP = 152;
-    public static final String KEY_ME_DANGNHAP = "me_dangnhap";
 
     public static String localhost = "10.0.133.201:8080";
     public static String API_URL = "http://" + localhost + "/server";
@@ -31,6 +25,8 @@ public class Constran {
     public static String insertUser_URL = "http://" + localhost + "/server/insert_user.php";
     public static String insertDiachi_URL = "http://" + localhost + "/server/insert_diachi.php";
     public static String getDiachi_URL = "http://" + localhost + "/server/getdiachi.php";
+
+    public static String finduserbyid_URL = "http://" + localhost + "/server/finduserbyid.php";
 
     //Chức năng trong tài khoản
     public static ArrayList<ItemTK> getListChucnang() {

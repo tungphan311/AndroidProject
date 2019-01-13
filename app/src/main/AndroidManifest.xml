@@ -32,7 +32,9 @@
         <activity android:name=".activity.Chucmungactivity" />
         <activity android:name=".activity.HelpActivity" />
         <activity android:name=".activity.MuahangActivity" />
-        <activity android:name=".activity.ThemdiachiActivity"></activity>
+        <activity android:name=".activity.ThemdiachiActivity" />
+        <activity android:name=".activity_mycart" />
+        <activity android:name=".activity.MycartActivity"></activity>
     </application>
 
 </manifest>

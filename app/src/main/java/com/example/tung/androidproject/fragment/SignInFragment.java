@@ -1,6 +1,7 @@
 package com.example.tung.androidproject.fragment;
 
 
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -41,6 +43,9 @@ public class SignInFragment extends Fragment {
 
     private TextView btnDangNhap, tvQuenMatKhau;
     private EditText etPhone, etPassword;
+    private CheckBox cbRemember;
+    public SharedPreferences sp;
+
 
     ArrayList<User> listUsers;
 
@@ -69,11 +74,56 @@ public class SignInFragment extends Fragment {
         initView(view);
 
         getListUser();
-
+        autologin();
         catchEvent();
 
         return view;
     }
+
+    private void autologin() {
+        String user="";
+        String pwd="";
+        SharedPreferences pre=getActivity().getSharedPreferences
+                ("mydata",getContext().MODE_PRIVATE);
+        //lấy giá trị checked ra, nếu không thấy thì giá trị mặc định là false
+        boolean bchk=pre.getBoolean("checked", false);
+        if(bchk)
+        {
+            //lấy user, pwd, nếu không thấy giá trị mặc định là rỗng
+             user=pre.getString("Unm", "");
+             pwd=pre.getString("Psw", "");
+            etPhone.setText(user);
+            etPassword.setText(pwd);
+        }
+        cbRemember.setChecked(bchk);
+        for (int i=0; i<listUsers.size(); i++) {
+            if (listUsers.get(i).getSodienthoai().equals(user) && listUsers.get(i).getMatkhau().equals(pwd)){
+                MainScreen.isDangNhap = true;
+                MainScreen.user = listUsers.get(i);
+            }
+        }
+
+    }
+
+
+    private void savedate(String phone, String passw) {
+        sp = getActivity().getSharedPreferences("mydata", getContext().MODE_PRIVATE);
+        SharedPreferences.Editor Ed = sp.edit();
+
+        boolean bchk = cbRemember.isChecked();
+        if (!bchk) {
+            //xóa mọi lưu trữ trước đó
+            Ed.clear();
+        } else {
+            //lưu vào editor
+            Ed.putString("Unm", phone);
+            Ed.putString("Psw", passw);
+            Ed.putBoolean("checked", bchk);
+        }
+        Ed.commit();
+    }
+
+
 
     private void catchEvent() {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +143,7 @@ public class SignInFragment extends Fragment {
                 else {
                     for (int i=0; i<listUsers.size(); i++) {
                         if (listUsers.get(i).getSodienthoai().equals(phone) && listUsers.get(i).getMatkhau().equals(pass)) {
+                             savedate(listUsers.get(i).getSodienthoai(),listUsers.get(i).getMatkhau());
                              MainScreen.isDangNhap = true;
                              MainScreen.user = listUsers.get(i);
                              continue;
@@ -166,6 +217,7 @@ public class SignInFragment extends Fragment {
         etPhone = view.findViewById(R.id.et_phone);
         etPassword = view.findViewById(R.id.et_password);
         listUsers = new ArrayList<>();
+        cbRemember = view.findViewById(R.id.cb_remember);
     }
 
 

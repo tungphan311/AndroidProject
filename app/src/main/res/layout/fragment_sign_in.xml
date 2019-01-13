@@ -52,19 +52,19 @@
 
         <CheckBox
             android:id="@+id/cb_remember"
-            android:layout_below="@+id/til_password"
-            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lưu thông tin đăng nhập"/>
+            android:layout_below="@+id/til_password"
+            android:layout_marginTop="5dp"
+            android:text="Lưu thông tin đăng nhập" />
 
         <TextView
             android:id="@+id/tv_quenmatkhau"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/til_password"
+            android:layout_below="@+id/cb_remember"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="68dp"
+            android:layout_marginTop="59dp"
             android:text="@string/btn_quenmatkhau"
             android:textColor="@color/color_blueText"
             android:textStyle="bold" />
@@ -72,8 +72,9 @@
         <TextView
             android:id="@+id/btn_dangnhap"
             style="@style/button"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="16dp"
+            android:layout_below="@+id/tv_quenmatkhau"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
             android:text="@string/btn_dangnhap" />
 
     </RelativeLayout>

@@ -16,11 +16,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tung.androidproject.R;
 import com.example.tung.androidproject.activity.HelpActivity;
 import com.example.tung.androidproject.activity.LoginActivity;
 import com.example.tung.androidproject.activity.MainScreen;
+import com.example.tung.androidproject.activity.SettingActivity;
 import com.example.tung.androidproject.adapter.MoreAdapter;
 import com.example.tung.androidproject.util.Constran;
 
@@ -101,6 +103,27 @@ public class MoreFragment extends Fragment {
                     case 2:
                         // giới thiệu
                         showGioiThieu();
+                        break;
+                }
+            }
+        });
+
+        lvChucnang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        break;
+
+                    case 1:
+                        if (MainScreen.isDangNhap) {
+                            Intent intent = new Intent(getActivity().getApplicationContext(), SettingActivity.class);
+                            startActivity(intent);
+                            getActivity().overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Vui lòng đăng nhập", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                 }
             }

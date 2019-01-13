@@ -43,9 +43,6 @@ import java.util.Map;
 import retrofit2.http.POST;
 
 public class MainScreen extends AppCompatActivity {
-
-    private ActionBar toolbar;
-
     public static boolean isDangNhap;
     public static User user;
 
@@ -54,7 +51,7 @@ public class MainScreen extends AppCompatActivity {
 
     public boolean close = false;
     public SharedPreferences pre;
-    ArrayList<User> listUsers = new ArrayList<>();
+    boolean isRead = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +61,26 @@ public class MainScreen extends AppCompatActivity {
         navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        loadState();
         // load app default
         loadFragment(new ShoppingFragment());
+    }
+
+    private void loadState() {
+        SharedPreferences preferences = getSharedPreferences("my_state", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        boolean check = preferences.getBoolean("dangnhap", false);
+
+        if (check) {
+            int mauser = preferences.getInt("mauser", 0);
+            isDangNhap = true;
+
+            findUser(mauser);
+        }
+
+        editor.clear();
+        editor.commit();
     }
 
     private void findUser(final int id) {
@@ -123,29 +138,9 @@ public class MainScreen extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void loadState() {
-        SharedPreferences preferences = getSharedPreferences("my_state", MODE_PRIVATE);
-
-        boolean check = preferences.getBoolean("dangnhap", false);
-
-        if (check) {
-            int mauser = preferences.getInt("mauser", 0);
-            isDangNhap = true;
-
-            findUser(mauser);
-        }
-    }
-
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        loadState();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
 
         saveState();
     }

@@ -60,28 +60,26 @@ public class ThongtinkhachhangActivity extends AppCompatActivity {
         edtemail.setText(MainScreen.user.getEmail());
     }
 
-    public int checkdauso(String dauso){
-        int count =0;
+    public boolean checkdauso(String dauso){
         if (dauso.equals("032")||dauso.equals("033")||dauso.equals("034")||dauso.equals("035")||dauso.equals("036")||dauso.equals("037")||dauso.equals("038")||dauso.equals("039")||
                 dauso.equals("056")||dauso.equals("057")||dauso.equals("058")||
                 dauso.equals("70")||dauso.equals("076")||dauso.equals("077")||dauso.equals("077")||dauso.equals("078")||dauso.equals("079")||
                 dauso.equals("081")||dauso.equals("082")||dauso.equals("083")||dauso.equals("084")||dauso.equals("085")||dauso.equals("086")||
                 dauso.equals("088")||dauso.equals("089")||dauso.equals("091")||dauso.equals("090")||dauso.equals("092")||dauso.equals("093")||dauso.equals("094")||
                 dauso.equals("096")||dauso.equals("097")||dauso.equals("098")){
-            count=1;
+           return true;
         }
-        return count;
+        return false;
     }
-    public int checksdt(String sdt){
-        int count = 0;
-
+    public boolean checksdt(String sdt){
         if (sdt.length()==10){
-            if (checkdauso(sdt.substring(0,3))==1){
-                count =1;
+            if (checkdauso(sdt.substring(0,3))){
+                return true;
             }
         }
-        return count;
+        return false;
     }
+
     public int checkthongtin(){
         String ten = edttenkhachhang.getText().toString();
         String sdt = edtsdt.getText().toString();
@@ -95,7 +93,7 @@ public class ThongtinkhachhangActivity extends AppCompatActivity {
         Pattern regex_email = Pattern.compile(emailPattern);
         Matcher matcher_email = regex_email.matcher(email);
         if (ten.length()>0 && sdt.length()>0 &&email.length()>0 ){
-            if(checksdt(sdt)==1){
+            if(checksdt(sdt)){
                 count_sdt =1;
                 if (matcher_email.find()) {
                    count_email=1;

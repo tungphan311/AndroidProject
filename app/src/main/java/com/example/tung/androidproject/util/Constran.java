@@ -46,4 +46,6 @@ public class Constran {
 
     public static String donhang_URL = "http://" + localhost + "/server/thongtinkh.php";
     public static String chitietdonhang_URL = "http://" + localhost + "/server/chitietdonhang.php";
+    public static String updatepassword_URL = "http://" + localhost + "/server/updatepassword.php";
+    public static String updateinfo_URL = "http://" + localhost + "/server/updateinfo.php";
 }

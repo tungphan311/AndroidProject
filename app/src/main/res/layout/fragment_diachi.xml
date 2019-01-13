@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginBottom="10dp"
         android:background="#f7f2f2">
 
         <LinearLayout
@@ -103,35 +104,41 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listview_diachi"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/ll_processbar"
-        android:layout_width="match_parent"
-        android:background="#f7f2f2"
-        android:layout_height="wrap_content"/>
-
     <LinearLayout
-        android:layout_below="@+id/listview_diachi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#f7f2f2"
-        android:id="@+id/ll_themdchi">
+        android:layout_above="@+id/ll_button"
+        android:layout_below="@+id/ll_processbar"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:src="@drawable/icons8_plus_50"/>
+        <ListView
+            android:id="@+id/listview_diachi"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:background="#f7f2f2" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_themdchi"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:textColor="@color/color_blueText"
-            android:textSize="16sp"
-            android:text="@string/themdiachi"/>
+            android:layout_marginTop="10dp"
+            android:background="#f7f2f2">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:src="@drawable/icons8_plus_50" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="@string/themdiachi"
+                android:textColor="@color/color_blueText"
+                android:textSize="16sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -148,6 +155,4 @@
             android:layout_margin="10dp"
             android:text="@string/diachi"/>
     </LinearLayout>
-
-
 </RelativeLayout>

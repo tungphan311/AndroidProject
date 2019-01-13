@@ -18,9 +18,30 @@ public class DiachiAdapter extends BaseAdapter {
     Context context;
     ArrayList<Diachi> listDiachi;
 
+    RadioButton selected = null;
+    String ten;
+    String sodt;
+    String diachi;
+
     public DiachiAdapter(Context context, ArrayList<Diachi> listDiachi) {
         this.context = context;
         this.listDiachi = listDiachi;
+    }
+
+    public RadioButton getSelected() {
+        return selected;
+    }
+
+    public String getTen() {
+        return ten;
+    }
+
+    public String getSodt() {
+        return sodt;
+    }
+
+    public String getdiachi() {
+        return diachi;
     }
 
     @Override
@@ -46,7 +67,7 @@ public class DiachiAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        DiachiAdapter.ViewHolder viewHolder = null;
+        final DiachiAdapter.ViewHolder viewHolder;
 
         if (view == null) {
             viewHolder = new DiachiAdapter.ViewHolder();
@@ -66,11 +87,34 @@ public class DiachiAdapter extends BaseAdapter {
             viewHolder = (DiachiAdapter.ViewHolder) view.getTag();
         }
 
-        Diachi dchi = (Diachi) getItem(position);
+        final Diachi dchi = (Diachi) getItem(position);
 
         viewHolder.tvTen.setText(dchi.getHoten());
         viewHolder.tvSodt.setText(dchi.getSodt());
         viewHolder.tvDiachi.setText(dchi.getDiachicuthe());
+
+        viewHolder.rbChondchi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selected == null) {
+                    selected = viewHolder.rbChondchi;
+                    selected.setChecked(true);
+
+                    ten = viewHolder.tvTen.getText().toString();
+                    sodt = viewHolder.tvSodt.getText().toString();
+                    diachi = viewHolder.tvDiachi.getText().toString();
+                }
+                if (selected == viewHolder.rbChondchi)
+                    return;
+
+                selected.setChecked(false);
+                viewHolder.rbChondchi.setChecked(true);
+                selected = viewHolder.rbChondchi;
+                ten = viewHolder.tvTen.getText().toString();
+                sodt = viewHolder.tvSodt.getText().toString();
+                diachi = viewHolder.tvDiachi.getText().toString();
+            }
+        });
 
         return view;
     }

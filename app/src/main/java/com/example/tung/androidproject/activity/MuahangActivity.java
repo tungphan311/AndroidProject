@@ -19,6 +19,8 @@ public class MuahangActivity extends AppCompatActivity {
 
     String tongtien;
     String tennguoinhan;
+    String sodtnguoinhan;
+    String diachinguoinhan;
 
     public String getTongtien() {
         return tongtien;
@@ -30,6 +32,22 @@ public class MuahangActivity extends AppCompatActivity {
 
     public void setTennguoinhan(String tennguoinhan) {
         this.tennguoinhan = tennguoinhan;
+    }
+
+    public String getSodtnguoinhan() {
+        return sodtnguoinhan;
+    }
+
+    public void setSodtnguoinhan(String sodtnguoinhan) {
+        this.sodtnguoinhan = sodtnguoinhan;
+    }
+
+    public String getDiachinguoinhan() {
+        return diachinguoinhan;
+    }
+
+    public void setDiachinguoinhan(String diachinguoinhan) {
+        this.diachinguoinhan = diachinguoinhan;
     }
 
     @Override

@@ -57,5 +57,11 @@ public class XacnhanFragment extends Fragment {
 
         String ten = ((MuahangActivity)getActivity()).getTennguoinhan();
         tvTen.setText(ten);
+
+        String sophone = ((MuahangActivity)getActivity()).getSodtnguoinhan();
+        tvSodt.setText(sophone);
+
+        String address = ((MuahangActivity)getActivity()).getDiachinguoinhan();
+        tvDiachi.setText(address);
     }
 }

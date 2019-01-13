@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -48,6 +50,8 @@ public class DiachiFragment extends Fragment {
     ArrayList<Diachi> listdiachi;
     DiachiAdapter adapter;
 
+    RadioButton currentChecked;
+
     public DiachiFragment() {
         // Required empty public constructor
     }
@@ -65,7 +69,13 @@ public class DiachiFragment extends Fragment {
 
         initEvent();
 
+        passData(view);
+
         return view;
+    }
+
+    private void passData(View view) {
+
     }
 
     private void initData(final int mauser) {
@@ -118,17 +128,27 @@ public class DiachiFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+
     private void initEvent() {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MuahangActivity)getActivity()).setTennguoinhan("Tung");
+                currentChecked = adapter.getSelected();
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.framelayout, fragment);
-                getActivity().overridePendingTransition(R.anim.leftin, R.anim.rightout);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                if (currentChecked == null) {
+                    Toast.makeText(getActivity(), "Vui lòng chọn 1 địa chỉ giao hàng!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    ((MuahangActivity)getActivity()).setTennguoinhan(adapter.getTen());
+                    ((MuahangActivity)getActivity()).setSodtnguoinhan(adapter.getSodt());
+                    ((MuahangActivity)getActivity()).setDiachinguoinhan(adapter.getdiachi());
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.framelayout, fragment);
+                    getActivity().overridePendingTransition(R.anim.leftin, R.anim.rightout);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
             }
         });
 

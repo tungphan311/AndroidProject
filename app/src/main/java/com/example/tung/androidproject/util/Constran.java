@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Constran {
     public static String connectionErrorMessage = "Vui lòng kiểm tra kết nối Internet";
 
-    public static String localhost = "10.0.135.91:8080";
+    public static String localhost = "eshopping.site";
     public static String API_URL = "http://" + localhost + "/server";
     public static String getLoaiSP_URL = "http://" + localhost + "/server/getloaisanpham.php";
     public static String getSPMoiNhat_URL = "http://" + localhost + "/server/getsanphammoinhat.php";

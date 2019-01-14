@@ -33,7 +33,6 @@
         <activity android:name=".activity.HelpActivity" />
         <activity android:name=".activity.MuahangActivity" />
         <activity android:name=".activity.ThemdiachiActivity" />
-        <activity android:name=".activity_mycart" />
         <activity android:name=".activity.MycartActivity"></activity>
         <activity android:name=".activity.ThemdiachiActivity" />
         <activity android:name=".activity.SettingActivity"></activity>

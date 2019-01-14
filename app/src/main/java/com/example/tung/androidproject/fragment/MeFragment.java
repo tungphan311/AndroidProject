@@ -76,7 +76,7 @@ public class MeFragment extends Fragment {
     int hangsx;
     int sort;
 
-    Spinner spnLoaisp, spnHangsx, spnSort;
+    Spinner spnLoaisp, spnHangsx;
     TextView tvNoResult;
 
     public MeFragment() {
@@ -106,7 +106,6 @@ public class MeFragment extends Fragment {
             check();
 
             spinnerLoaispGetData();
-            spinnerSortGetData();
         }
         else {
             CheckConnection.ShowToast_Short(getActivity().getApplicationContext(), Constran.connectionErrorMessage);
@@ -150,13 +149,6 @@ public class MeFragment extends Fragment {
             spnHangsx.setAdapter(arrayAdapter);
         }
     }
-
-    private void spinnerSortGetData() {
-        String[] listFilter = new String[] {"Không", "Theo giá: thấp -> cao", "Theo giá: cao -> thấp"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listFilter);
-        spnSort.setAdapter(arrayAdapter);
-    }
-
 
     private void check() {
 
@@ -473,7 +465,6 @@ public class MeFragment extends Fragment {
 
         spnLoaisp = view.findViewById(R.id.spinner_loaisp);
         spnHangsx = view.findViewById(R.id.spinner_hangsx);
-        spnSort = view.findViewById(R.id.spinner_sort);
         tvNoResult = view.findViewById(R.id.tv_noresult);
     }
 

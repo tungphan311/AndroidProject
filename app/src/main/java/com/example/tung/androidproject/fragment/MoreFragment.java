@@ -120,8 +120,8 @@ public class MoreFragment extends Fragment {
 
                     case 1:
                         if (MainScreen.isDangNhap) {
-                            Intent intent = new Intent(getActivity().getApplicationContext(), SettingActivity.class);
-                            startActivity(intent);
+                            Intent intent2 = new Intent(getActivity().getApplicationContext(), SettingActivity.class);
+                            startActivity(intent2);
                             getActivity().overridePendingTransition(R.anim.right_in, R.anim.left_out);
                         }
                         else {

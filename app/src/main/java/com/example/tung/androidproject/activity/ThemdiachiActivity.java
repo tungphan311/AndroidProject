@@ -108,7 +108,7 @@ public class ThemdiachiActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vui lòng điền địa chỉ người nhận", Toast.LENGTH_SHORT);
                 }
                 else {
-                    themDiachigiaohang(hoten, sodt, spnTinh.getSelectedItem().toString(), spnHuyen.getSelectedItem().toString(), diachi, 1);
+                    themDiachigiaohang(hoten, sodt, spnTinh.getSelectedItem().toString(), spnHuyen.getSelectedItem().toString(), diachi, MainScreen.user.getMauser());
 
                     finish();
                     overridePendingTransition(R.anim.leftin, R.anim.rightout);

@@ -52,6 +52,7 @@ public class MycartActivity extends AppCompatActivity {
         Event();
     }
 
+
     private void Event() {
         btntrove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,10 +64,11 @@ public class MycartActivity extends AppCompatActivity {
 
     private void loaddata() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Constran.getmycart_URL+String.valueOf(MainScreen.user.mauser), new Response.Listener<JSONArray>() {
+        String request = Constran.getmycart_URL+String.valueOf(MainScreen.user.getMauser());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(request, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                if (response != null) {
+                if (response != null && response.length() != 2) {
                     thongbao.setVisibility(View.INVISIBLE);
                     for (int i=0; i<response.length(); i++) {
                         try {

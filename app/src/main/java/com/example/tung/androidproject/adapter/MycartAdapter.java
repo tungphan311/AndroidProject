@@ -62,16 +62,18 @@ public class MycartAdapter extends BaseAdapter {
         }else {
             viewHolder = (MycartAdapter.ViewHolder) view.getTag();
         }
+
         Cart cart = (Cart) getItem(position);
+
         viewHolder.tvTensp.setText(cart.getTensp());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHolder.tvGiasp.setText(decimalFormat.format(cart.getGiasp()));
+        viewHolder.tvGiasp.setText("Giá: " + decimalFormat.format(cart.getGiasp()) + " đ");
         Picasso.with(context).load(cart.getHinhsp())
                 .placeholder(R.drawable.ic_not_available)
                 .error(R.drawable.ic_error)
                 .into(viewHolder.imgSp);
 
-        viewHolder.tvSoluongsp.setText(cart.getSoluong() + "");
+        viewHolder.tvSoluongsp.setText("Số lượng: " +String.valueOf(cart.getSoluong()));
 
         return view;
     }

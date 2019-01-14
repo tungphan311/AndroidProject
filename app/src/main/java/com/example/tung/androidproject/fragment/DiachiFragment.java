@@ -106,7 +106,6 @@ public class DiachiFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Toast.makeText(getActivity(), String.valueOf(listdiachi.size()), Toast.LENGTH_SHORT).show();
                 }
                 else {
 

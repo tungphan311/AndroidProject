@@ -34,6 +34,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -159,15 +161,53 @@ public class SignUpFragment extends Fragment  {
                 Toast.makeText(getActivity(), "Số điện thoại này đã được đăng ký", Toast.LENGTH_SHORT).show();
             }
             else {
-                addNewUser(sodt, pass, hoten, gioitinh, namsinh, diachi, email);
+                if (!checksdt(sodt)) {
+                    Toast.makeText(getActivity(), "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
+                }
+                else if (!checkthongtin(email)) {
+                    Toast.makeText(getActivity(), "Email không hợp lệ", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    addNewUser(sodt, pass, hoten, gioitinh, namsinh, diachi, email);
 
-                getActivity().finish();
-                getActivity().overridePendingTransition(R.anim.leftin, R.anim.rightout);
-                Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+                    getActivity().finish();
+                    getActivity().overridePendingTransition(R.anim.leftin, R.anim.rightout);
+                    Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         }
 
+    }
+
+    public boolean checkthongtin(String email){
+        String emailPattern = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        Pattern regex_email = Pattern.compile(emailPattern);
+        Matcher matcher_email = regex_email.matcher(email);
+        if (email.length()>0 ) {
+            return matcher_email.find();
+        }
+        return false;
+    }
+
+    public boolean checkdauso(String dauso){
+        if (dauso.equals("032")||dauso.equals("033")||dauso.equals("034")||dauso.equals("035")||dauso.equals("036")||dauso.equals("037")||dauso.equals("038")||dauso.equals("039")||
+                dauso.equals("056")||dauso.equals("057")||dauso.equals("058")||
+                dauso.equals("70")||dauso.equals("076")||dauso.equals("077")||dauso.equals("077")||dauso.equals("078")||dauso.equals("079")||
+                dauso.equals("081")||dauso.equals("082")||dauso.equals("083")||dauso.equals("084")||dauso.equals("085")||dauso.equals("086")||
+                dauso.equals("088")||dauso.equals("089")||dauso.equals("091")||dauso.equals("090")||dauso.equals("092")||dauso.equals("093")||dauso.equals("094")||
+                dauso.equals("096")||dauso.equals("097")||dauso.equals("098")){
+            return true;
+        }
+        return false;
+    }
+    public boolean checksdt(String sdt){
+        if (sdt.length()==10){
+            if (checkdauso(sdt.substring(0,3))){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void addNewUser(final String Sodt, final String Pass, final String Hoten, final String Gioitinh, final int Namsinh, final String Diachi, final String Email) {

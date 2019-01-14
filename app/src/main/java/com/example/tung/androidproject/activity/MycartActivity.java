@@ -29,7 +29,6 @@ import java.util.ArrayList;
 public class MycartActivity extends AppCompatActivity {
 
     ListView listViewmyCart;
-    static TextView tvTongtien;
     Button btntrove;
     MycartAdapter mycartAdapter;
     ArrayList<Cart> mycart;
@@ -68,7 +67,7 @@ public class MycartActivity extends AppCompatActivity {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(request, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                if (response != null && response.length() != 2) {
+                if (response != null && response.length() > 0) {
                     thongbao.setVisibility(View.INVISIBLE);
                     for (int i=0; i<response.length(); i++) {
                         try {
@@ -87,6 +86,9 @@ public class MycartActivity extends AppCompatActivity {
                         }
                     }
                 }
+                else {
+                    thongbao.setVisibility(View.VISIBLE);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -94,6 +96,7 @@ public class MycartActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "get loaisanpham error", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         requestQueue.add(jsonArrayRequest);
     }

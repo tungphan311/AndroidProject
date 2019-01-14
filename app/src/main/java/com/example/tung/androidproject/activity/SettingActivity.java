@@ -205,7 +205,6 @@ public class SettingActivity extends AppCompatActivity {
 
     public boolean checkthongtin(String email){
         String emailPattern = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        String dauso ="";
         Pattern regex_email = Pattern.compile(emailPattern);
         Matcher matcher_email = regex_email.matcher(email);
         if (email.length()>0 ) {

@@ -108,15 +108,40 @@ public class ThemdiachiActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vui lòng điền địa chỉ người nhận", Toast.LENGTH_SHORT);
                 }
                 else {
-                    themDiachigiaohang(hoten, sodt, spnTinh.getSelectedItem().toString(), spnHuyen.getSelectedItem().toString(), diachi, MainScreen.user.getMauser());
+                    if (!checksdt(sodt)) {
+                        Toast.makeText(ThemdiachiActivity.this, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        themDiachigiaohang(hoten, sodt, spnTinh.getSelectedItem().toString(), spnHuyen.getSelectedItem().toString(), diachi, MainScreen.user.getMauser());
 
-                    finish();
-                    overridePendingTransition(R.anim.leftin, R.anim.rightout);
-                    Intent intent = new Intent(getApplicationContext(), MuahangActivity.class);
-                    startActivity(intent);
+                        finish();
+                        overridePendingTransition(R.anim.leftin, R.anim.rightout);
+                        Intent intent = new Intent(getApplicationContext(), MuahangActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
+    }
+
+    public boolean checkdauso(String dauso){
+        if (dauso.equals("032")||dauso.equals("033")||dauso.equals("034")||dauso.equals("035")||dauso.equals("036")||dauso.equals("037")||dauso.equals("038")||dauso.equals("039")||
+                dauso.equals("056")||dauso.equals("057")||dauso.equals("058")||
+                dauso.equals("70")||dauso.equals("076")||dauso.equals("077")||dauso.equals("077")||dauso.equals("078")||dauso.equals("079")||
+                dauso.equals("081")||dauso.equals("082")||dauso.equals("083")||dauso.equals("084")||dauso.equals("085")||dauso.equals("086")||
+                dauso.equals("088")||dauso.equals("089")||dauso.equals("091")||dauso.equals("090")||dauso.equals("092")||dauso.equals("093")||dauso.equals("094")||
+                dauso.equals("096")||dauso.equals("097")||dauso.equals("098")){
+            return true;
+        }
+        return false;
+    }
+    public boolean checksdt(String sdt){
+        if (sdt.length()==10){
+            if (checkdauso(sdt.substring(0,3))){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void getDataSpinnerTinh() {
